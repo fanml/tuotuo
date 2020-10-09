@@ -8,9 +8,9 @@ public class Director {
     }
 
     public Product builder() {
-        builder.builderBiZi();
-        builder.builderErDuo();
-        builder.builderZui();
-        return builder.getBuilder();
+        builder.builderBiZi("大鼻子");
+        builder.builderErDuo("小眼睛");
+        builder.builderZui("大嘴");
+        return builder.getProduct();
     }
 }

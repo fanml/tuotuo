@@ -3,13 +3,13 @@ package com.fml.learn.basiclearn.patterns.builder;
 abstract class Builder {
     protected Product cat = new Product();
 
-    public abstract void builderErDuo();
+    public abstract Builder builderErDuo(String a);
 
-    public abstract void builderBiZi();
+    public abstract Builder builderBiZi(String a);
 
-    public abstract void builderZui();
+    public abstract Builder builderZui(String a);
 
-    public Product getBuilder() {
+    public  Product getProduct(){
         return cat;
     }
 
