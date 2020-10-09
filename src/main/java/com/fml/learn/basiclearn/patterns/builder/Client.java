@@ -1,4 +1,4 @@
-package com.fml.learn.basiclearn.patterns.Builder;
+package com.fml.learn.basiclearn.patterns.builder;
 
 public class Client {
     public static void main(String[] args) {
