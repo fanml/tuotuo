@@ -1,5 +1,8 @@
 package com.fml.learn.basiclearn.patterns.builder;
 
+/**
+ * 抽象建造者（Builder）
+ */
 abstract class Builder {
     protected Product cat = new Product();
 

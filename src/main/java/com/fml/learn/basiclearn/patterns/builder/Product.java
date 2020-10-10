@@ -1,5 +1,8 @@
 package com.fml.learn.basiclearn.patterns.builder;
 
+/**
+ * 产品角色（Product
+ */
 public class Product {
     private String erDuo = "耳朵";
     private String biZi = "鼻子";

@@ -1,5 +1,8 @@
 package com.fml.learn.basiclearn.patterns.builder;
 
+/**
+ * 具体建造者(Concrete Builder）
+ */
 public class CatBuilderOne extends Builder {
     @Override
     public Builder builderErDuo(String a) {

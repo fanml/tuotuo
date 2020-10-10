@@ -1,5 +1,8 @@
 package com.fml.learn.basiclearn.patterns.builder;
 
+/**
+ * 指挥者（Director）
+ */
 public class Director {
     private Builder builder;
 
