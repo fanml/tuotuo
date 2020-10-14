@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * 元注解学习
  */
 // 表示注解可以使用在哪些地方
-@Target(value = {ElementType.METHOD, ElementType.TYPE})
+@Target(value = {ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
 
 // 表示我们的注解在什么地方有效  字节码:class  > 运行时:runtime > source
 @Retention(value = RetentionPolicy.RUNTIME)

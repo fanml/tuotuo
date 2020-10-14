@@ -1,5 +1,7 @@
 package com.fml.learn.basiclearn.reflection;
 
+import com.fml.learn.basiclearn.annotation.MetaAnnotation;
+
 public class GetReflection {
     // 反射获取类的5种方式
     public static void main(String[] args) throws ClassNotFoundException {
@@ -42,9 +44,38 @@ class Person {
                 "name='" + name + '\'' +
                 '}';
     }
-}
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+@MetaAnnotation(name = "zzz")
 class Student extends Person {
+
+    @MetaAnnotation(name = "eye",age = 10)
+    public int eye;
+    private int age;
+
+    public int getEye() {
+        return eye;
+    }
+
+    public void setEye(int eye) {
+        this.eye = eye;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public Student() {
         this.name = "连长";
     }
