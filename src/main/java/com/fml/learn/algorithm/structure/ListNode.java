@@ -1,5 +1,8 @@
-package com.fml.learn.algorithm;
+package com.fml.learn.algorithm.structure;
 
+/**
+ *  链表
+ */
 public class ListNode {
     int val;
     ListNode next;

@@ -1,5 +1,7 @@
 package com.fml.learn.algorithm;
 
+import com.fml.learn.algorithm.structure.ListNode;
+
 import java.util.*;
 
 public class Solution {
