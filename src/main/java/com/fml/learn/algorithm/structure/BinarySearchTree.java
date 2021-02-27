@@ -48,7 +48,20 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     public void printTree() {
+        if (isEmpty()) {
+            System.out.println("Empty tree");
+        } else {
+            printTree(root);
+        }
 
+    }
+
+    private void printTree(BinaryNode<T> t) {
+        if (t != null) {
+            printTree(t.left);
+            System.out.println(t.element);
+            printTree(t.right);
+        }
     }
 
 
