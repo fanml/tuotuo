@@ -22,7 +22,7 @@ public class ThreadPoolExecutorDemo {
                 new ArrayBlockingQueue<>(QUEUE_CAPACITY),
                 new ThreadPoolExecutor.CallerRunsPolicy());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             //创建WorkerThread对象（WorkerThread类实现了Runnable 接口）
             Runnable worker = new MyRunnable("" + i);
             //执行Runnable
