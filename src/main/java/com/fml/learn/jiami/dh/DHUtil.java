@@ -1,4 +1,4 @@
-package com.fml.learn.dh;
+package com.fml.learn.jiami.dh;
 
 import org.apache.commons.codec.binary.Hex;
 
@@ -13,7 +13,7 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * java实现非对称加密算法-DH
  *  由于JDK8 update 161之后，DH的密钥长度至少为512位，但DES算法密钥不能达到这样的长度，长度不一致所以导致报错。
- *  -Djdk.crypto.KeyAgreement.legacyKDF=true
+ *  jvm 参数配置  -Djdk.crypto.KeyAgreement.legacyKDF=true
  */
 public class DHUtil {
     public static PublicKey receiverPublicKey;

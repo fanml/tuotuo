@@ -1,4 +1,4 @@
-package com.fml.learn.dh;
+package com.fml.learn.jiami.dh;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
