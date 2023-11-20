@@ -1,5 +1,6 @@
 package com.fml.learn.algorithm;
 
+import com.fml.learn.algorithm.structure.ListNode;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +36,35 @@ public class NewSolutionTest {
       result = Math.max(result, k - i + 1);
     }
     return result;
+  }
+
+  /**
+   * 206. 反转链表  双指针 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。 输入：head = [1,2,3,4,5] 输出：[5,4,3,2,1] 输入：head =
+   * [1,2] 输出：[2,1] 输入：head = [] 输出：[] 普通方法
+   */
+  public ListNode reverseList1(ListNode head) {
+    ListNode pre = null;
+    ListNode curr = head;
+    while (curr != null) {
+      ListNode next = curr.next;
+      curr.next = pre;
+      pre = curr;
+      curr = next;
+    }
+    return pre;
+  }
+
+  /**
+   * 206. 反转链表 递归
+   */
+  public ListNode reverseList(ListNode head) {
+    if (head == null || head.next == null) {
+      return head;
+    }
+    ListNode newHead = reverseList(head);
+    head.next.next = head;
+    head.next = null;
+    return newHead;
   }
 
 }

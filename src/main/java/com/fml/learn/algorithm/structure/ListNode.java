@@ -5,7 +5,7 @@ package com.fml.learn.algorithm.structure;
  */
 public class ListNode {
     int val;
-    ListNode next;
+    public ListNode next;
 
     ListNode() {
     }
