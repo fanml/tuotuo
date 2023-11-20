@@ -1,8 +1,8 @@
 package com.fml.learn.jiami.base64;
 
 import org.apache.commons.codec.binary.Base64;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 
@@ -18,19 +18,19 @@ public class Base64Util {
     }
 
     public static void jdkBase64(){
-        try {
-
-        // 编码
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encode = encoder.encode(src.getBytes());
-        System.out.println("encode:  :" + encode);
-        // 解码
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] bytes = decoder.decodeBuffer(encode);
-            System.out.println("decode:  :" + new String(bytes));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//
+//        // 编码
+//        BASE64Encoder encoder = new BASE64Encoder();
+//        String encode = encoder.encode(src.getBytes());
+//        System.out.println("encode:  :" + encode);
+//        // 解码
+//        BASE64Decoder decoder = new BASE64Decoder();
+//        byte[] bytes = decoder.decodeBuffer(encode);
+//            System.out.println("decode:  :" + new String(bytes));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void commonsCodecBase64(){
