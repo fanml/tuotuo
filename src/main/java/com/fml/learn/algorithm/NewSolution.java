@@ -1,9 +1,11 @@
 package com.fml.learn.algorithm;
 
 import com.fml.learn.algorithm.structure.ListNode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -217,24 +219,17 @@ public class NewSolution {
 
 
   /**
-   * 215. 数组中的第K个最大元素
-   * 中等
-   * 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
-   *
+   * 215. 数组中的第K个最大元素 中等 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
+   * <p>
    * 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
-   *
+   * <p>
    * 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。
-   *
-   * 示例 1:
-   * 输入: [3,2,1,5,6,4], k = 2
-   * 输出: 5
-   *
-   * 示例 2:
-   * 输入: [3,2,3,1,2,4,5,5,6], k = 4
-   * 输出: 4
-   *
+   * <p>
+   * 示例 1: 输入: [3,2,1,5,6,4], k = 2 输出: 5
+   * <p>
+   * 示例 2: 输入: [3,2,3,1,2,4,5,5,6], k = 4 输出: 4
    */
-   static  int quickselect(int[] nums, int l, int r, int k) {
+  static int quickselect(int[] nums, int l, int r, int k) {
     if (l == r) {
       return nums[k];
     }
@@ -253,7 +248,7 @@ public class NewSolution {
       }
     }
     // 打印
-     System.out.println(Arrays.toString(nums));
+    System.out.println(Arrays.toString(nums));
     if (k <= j) {
       return quickselect(nums, l, j, k);
     } else {
@@ -268,53 +263,106 @@ public class NewSolution {
 
   /**
    * 25. K 个一组翻转链表
-   *
-   *给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。
-   * k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
-   * 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+   * <p>
+   * 给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。 k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k
+   * 的整数倍，那么请将最后剩余的节点保持原有顺序。 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
    */
-    public ListNode reverseKGroup(ListNode head, int k) {
-      ListNode hair = new ListNode(0);
-      hair.next = head;
-      ListNode pre = hair;
+  public ListNode reverseKGroup(ListNode head, int k) {
+    ListNode hair = new ListNode(0);
+    hair.next = head;
+    ListNode pre = hair;
 
-      while (head != null) {
-        ListNode tail = pre;
-        // 查看剩余部分长度是否大于等于 k
-        for (int i = 0; i < k; ++i) {
-          tail = tail.next;
-          if (tail == null) {
-            return hair.next;
-          }
+    while (head != null) {
+      ListNode tail = pre;
+      // 查看剩余部分长度是否大于等于 k
+      for (int i = 0; i < k; ++i) {
+        tail = tail.next;
+        if (tail == null) {
+          return hair.next;
         }
-        ListNode nex = tail.next;
-        ListNode[] reverse = myReverse(head, tail);
-        head = reverse[0];
-        tail = reverse[1];
-        // 把子链表重新接回原链表
-        pre.next = head;
-        tail.next = nex;
-        pre = tail;
-        head = tail.next;
       }
-
-      return hair.next;
+      ListNode nex = tail.next;
+      ListNode[] reverse = myReverse(head, tail);
+      head = reverse[0];
+      tail = reverse[1];
+      // 把子链表重新接回原链表
+      pre.next = head;
+      tail.next = nex;
+      pre = tail;
+      head = tail.next;
     }
 
-    public ListNode[] myReverse(ListNode head, ListNode tail) {
-      // tail的下一个节点
-      ListNode prev = tail.next;
-      // head节点
-      ListNode p = head;
-      while (prev != tail) {
-        ListNode nex = p.next;
-        p.next = prev;
-        prev = p;
-        p = nex;
-      }
-      return new ListNode[]{tail, head};
-    }
+    return hair.next;
+  }
 
+  public ListNode[] myReverse(ListNode head, ListNode tail) {
+    // tail的下一个节点
+    ListNode prev = tail.next;
+    // head节点
+    ListNode p = head;
+    while (prev != tail) {
+      ListNode nex = p.next;
+      p.next = prev;
+      prev = p;
+      p = nex;
+    }
+    return new ListNode[]{tail, head};
+  }
+
+
+  /**
+   * 15. 三数之和
+   * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
+   * 你返回所有和为 0 且不重复的三元组。
+   * 注意：答案中不可以包含重复的三元组。
+   * 输入：nums = [-1,0,1,2,-1,-4]
+   * 输出：[[-1,-1,2],[-1,0,1]]
+   * 解释：
+   * nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+   * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+   * nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+   * 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+   * 注意，输出的顺序和三元组的顺序并不重要。
+   */
+  public List<List<Integer>> threeSum(int[] nums) {
+    int n = nums.length;
+    Arrays.sort(nums);
+    List<List<Integer>> ans = new ArrayList<List<Integer>>();
+    // 枚举 a
+    for (int first = 0; first < n; ++first) {
+      // 需要和上一次枚举的数不相同
+      if (first > 0 && nums[first] == nums[first - 1]) {
+        continue;
+      }
+      // c 对应的指针初始指向数组的最右端
+      int third = n - 1;
+      int target = -nums[first];
+      // 枚举 b
+      for (int second = first + 1; second < n; ++second) {
+        // 需要和上一次枚举的数不相同
+        if (second > first + 1 && nums[second] == nums[second - 1]) {
+          continue;
+        }
+        // 需要保证 b 的指针在 c 的指针的左侧
+        while (second < third && nums[second] + nums[third] > target) {
+          --third;
+        }
+        // 如果指针重合，随着 b 后续的增加
+        // 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
+        if (second == third) {
+          break;
+        }
+        if (nums[second] + nums[third] == target) {
+          List<Integer> list = new ArrayList<Integer>();
+          list.add(nums[first]);
+          list.add(nums[second]);
+          list.add(nums[third]);
+          ans.add(list);
+        }
+      }
+    }
+    return ans;
+  }
 
 
   public static void main(String[] args) {
@@ -322,8 +370,8 @@ public class NewSolution {
 //    String s = "bbbbb";
 //    String s = "pwwkew";
 //    System.out.println(lengthOfLongestSubstring(s));
-    int [] nums ={3,2,1,5,6,4};
-    findKthLargest(nums,2);
+    int[] nums = {3, 2, 1, 5, 6, 4};
+    findKthLargest(nums, 2);
 
 
   }
