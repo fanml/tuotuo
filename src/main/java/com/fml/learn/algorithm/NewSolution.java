@@ -311,18 +311,11 @@ public class NewSolution {
 
 
   /**
-   * 15. 三数之和
-   * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
-   * 你返回所有和为 0 且不重复的三元组。
-   * 注意：答案中不可以包含重复的三元组。
-   * 输入：nums = [-1,0,1,2,-1,-4]
-   * 输出：[[-1,-1,2],[-1,0,1]]
-   * 解释：
-   * nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
-   * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
-   * nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
-   * 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
-   * 注意，输出的顺序和三元组的顺序并不重要。
+   * 15. 三数之和 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足
+   * nums[i] + nums[j] + nums[k] == 0 。请 你返回所有和为 0 且不重复的三元组。 注意：答案中不可以包含重复的三元组。 输入：nums =
+   * [-1,0,1,2,-1,-4] 输出：[[-1,-1,2],[-1,0,1]] 解释： nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+   * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1)
+   * = 0 。 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。 注意，输出的顺序和三元组的顺序并不重要。
    */
   public List<List<Integer>> threeSum(int[] nums) {
     int n = nums.length;
@@ -363,6 +356,29 @@ public class NewSolution {
     }
     return ans;
   }
+
+  /**
+   * 53. 最大子数组和
+   *
+   * 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+   * 子数组 是数组中的一个连续部分。
+   *
+   * 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+   * 输出：6
+   * 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+   *
+   * 动态规划
+   */
+  public int maxSubArray(int[] nums) {
+    int pre = 0, maxAns = nums[0];
+    for (int x : nums) {
+      pre = Math.max(pre + x, x);
+      maxAns = Math.max(maxAns, pre);
+    }
+    return maxAns;
+  }
+
+
 
 
   public static void main(String[] args) {

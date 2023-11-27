@@ -18,6 +18,11 @@ public class SortAll {
         }
     }
 
+    /**
+     * 希尔排序
+     * @param a
+     * @param <T>
+     */
     public static <T extends Comparable<? super T>> void shellSort(T[] a) {
         int j;
         for (int gap = a.length / 2; gap > 0; gap /= 2) {
