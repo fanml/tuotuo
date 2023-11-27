@@ -1,9 +1,10 @@
 package com.fml.learn.algorithm;
 
 import com.fml.learn.algorithm.structure.ListNode;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 public class NewSolutionTest {
@@ -69,8 +70,7 @@ public class NewSolutionTest {
     return newHead;
   }
 
-
-//  public class LRUCache {
+  //  public class LRUCache {
 //
 //    /**
 //     * 算法
@@ -180,5 +180,135 @@ public class NewSolutionTest {
 //    }
 //  }
 //
+
+  /**
+   * 15. 三数之和 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足
+   * nums[i] + nums[j] + nums[k] == 0 。请 你返回所有和为 0 且不重复的三元组。 注意：答案中不可以包含重复的三元组。 输入：nums =
+   * [-1,0,1,2,-1,-4] 输出：[[-1,-1,2],[-1,0,1]] 解释： nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+   * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1)
+   * = 0 。 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。 注意，输出的顺序和三元组的顺序并不重要。
+   */
+  public List<List<Integer>> threeSum(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    // 排序
+    Arrays.sort(nums);
+    int length = nums.length;
+    // 第一层循环
+    for (int first = 0; first < length; first++) {
+      // 相等的数据跳过
+      if (first > 0 && nums[first] == nums[first - 1]) {
+        continue;
+      }
+      // c 对应的指针初始指向数组的最右端
+      int third = length - 1;
+      int target = -nums[first];
+      for (int second = first + 1; second < length; second++) {
+        if (second > first + 1 && nums[second] == nums[second - 1]) {
+          continue;
+        }
+        // 移动third
+        while (second < third && nums[second] + nums[third] > target) {
+          --third;
+        }
+        if (second == third) {
+          break;
+        }
+        if (nums[second] + nums[third] == target) {
+          List<Integer> list = new ArrayList<>();
+          list.add(nums[first]);
+          list.add(nums[second]);
+          list.add(nums[third]);
+          result.add(list);
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
+   * 215. 数组中的第K个最大元素 中等 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
+   * <p>
+   * 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+   * <p>
+   * 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。
+   * <p>
+   * 示例 1: 输入: [3,2,1,5,6,4], k = 2 输出: 5
+   * <p>
+   * 示例 2: 输入: [3,2,3,1,2,4,5,5,6], k = 4 输出: 4
+   */
+  static int quickselect(int[] nums, int l, int r, int k) {
+    if (l == r) {
+      return nums[k];
+    }
+    int x = nums[l];
+    int i = l - 1;
+    int j = r + 1;
+    while (i < j) {
+      do {
+        i++;
+      } while (nums[i] < x);
+      do {
+        j--;
+      } while (nums[j] > x);
+      if (i < j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+      }
+    }
+    if (k <= j) {
+      return quickselect(nums, l, j, k);
+    } else {
+      return quickselect(nums, j + 1, r, k);
+    }
+  }
+
+  public static int findKthLargest(int[] _nums, int k) {
+    int n = _nums.length;
+    return quickselect(_nums, 0, n - 1, n - k);
+  }
+
+  /**
+   * 25. K 个一组翻转链表
+   * <p>
+   * 给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。 k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k
+   * 的整数倍，那么请将最后剩余的节点保持原有顺序。 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+   */
+  public ListNode reverseKGroup(ListNode head, int k) {
+    ListNode hair = new ListNode(0);
+    hair.next = head;
+    ListNode pre = hair;
+    while (head != null) {
+      ListNode tail = pre;
+      for (int i = 0; i < k; i++) {
+        tail = tail.next;
+        if (tail == null) {
+          return hair.next;
+        }
+      }
+      ListNode nex = tail.next;
+      ListNode[] reverse = myReverse(head, tail);
+      head = reverse[0];
+      tail = reverse[1];
+      pre.next = head;
+      tail.next = nex;
+      pre = tail;
+      head = tail.next;
+    }
+    return hair.next;
+  }
+
+  public ListNode[] myReverse(ListNode head, ListNode tail) {
+    ListNode prev = tail.next;
+    ListNode p = head;
+    while (prev != tail){
+      ListNode nex = p.next;
+      p.next = prev;
+      prev = p;
+      p = nex;
+    }
+    return new ListNode[]{tail, head};
+  }
+
 
 }
