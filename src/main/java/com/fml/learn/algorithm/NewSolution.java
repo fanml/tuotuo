@@ -359,14 +359,11 @@ public class NewSolution {
 
   /**
    * 53. 最大子数组和
-   *
-   * 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
-   * 子数组 是数组中的一个连续部分。
-   *
-   * 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
-   * 输出：6
-   * 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
-   *
+   * <p>
+   * 给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 子数组 是数组中的一个连续部分。
+   * <p>
+   * 输入：nums = [-2,1,-3,4,-1,2,1,-5,4] 输出：6 解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+   * <p>
    * 动态规划
    */
   public int maxSubArray(int[] nums) {
@@ -378,7 +375,66 @@ public class NewSolution {
     return maxAns;
   }
 
+  /**
+   * 21. 合并两个有序链表 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的 输入：l1 = [1,2,4], l2 = [1,3,4]
+   * 输出：[1,1,2,3,4,4]
+   */
+  public ListNode mergeTwoLists1(ListNode l1, ListNode l2) {
+    if (l1 == null) {
+      return l2;
+    } else if (l2 == null) {
+      return l1;
+    } else if (l1.val < l2.val) {
+      l1.next = mergeTwoLists1(l1.next, l2);
+      return l1;
+    } else {
+      l2.next = mergeTwoLists1(l1, l2.next);
+      return l2;
+    }
+  }
 
+  /**
+   * 21. 合并两个有序链表 非递归
+   */
+  public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    // 定义一个哨兵节点
+    ListNode prehead = new ListNode(-1);
+    // 维护一个prev指针
+    ListNode prev = prehead;
+    while (l1 != null && l2 != null) {
+      // 指针指向小的节点
+      if (l1.val <= l2.val) {
+        prev.next = l1;
+        // 移动子链表头
+        l1 = l1.next;
+      } else {
+        prev.next = l2;
+        l2 = l2.next;
+      }
+      // 移动指针
+      prev = prev.next;
+    }
+    // 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可
+    prev.next = l1 == null ? l2 : l1;
+    return prehead.next;
+  }
+
+  /**
+   * 1. 两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+   * 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。 你可以按任意顺序返回答案。 输入：nums = [2,7,11,15], target = 9
+   * 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1]
+   */
+  public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+      if (map.containsKey(nums[i])) {
+        return new int[]{map.get(nums[i]), i};
+      } else {
+        map.put(target - nums[i], i);
+      }
+    }
+    return null;
+  }
 
 
   public static void main(String[] args) {

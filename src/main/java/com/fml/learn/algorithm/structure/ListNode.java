@@ -4,7 +4,7 @@ package com.fml.learn.algorithm.structure;
  *  链表
  */
 public class ListNode {
-    int val;
+    public int val;
     public ListNode next;
 
     ListNode() {
