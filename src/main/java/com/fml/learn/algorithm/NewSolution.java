@@ -436,15 +436,94 @@ public class NewSolution {
     return null;
   }
 
+  /**
+   * 5. 最长回文子串 给你一个字符串 s，找到 s 中最长的回文子串。 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
+   * <p>
+   * 示例 1： 输入：s = "babad" 输出："bab" 解释："aba" 同样是符合题意的答案。 暴力解法
+   */
+  public String longestPalindrome1(String s) {
+    int len = s.length();
+    if (len < 2) {
+      return s;
+    }
+    int maxLen = 1;
+    int begin = 0;
+    char[] charArray = s.toCharArray();
+    for (int i = 0; i < len - 1; i++) {
+      for (int j = i + 1; j < len; j++) {
+        // 暴力解法优化
+        // 截取所有子串，如果截取的子串小于等于之前 遍历过的最大回文串，直接跳过。因为截取的子串即使是回文串也不可能是最大的，所以不需要判断
+        if (j - i < len) {
+          continue;
+        }
+        if (j - i + 1 > maxLen && validPalindromic(charArray, i, j)) {
+          maxLen = j - i + 1;
+          begin = i;
+        }
+      }
+    }
+    return s.substring(begin, begin + maxLen);
+
+  }
+
+  /**
+   * 判断回文子串
+   *
+   * @param charArray
+   * @param left
+   * @param right
+   * @return
+   */
+  private boolean validPalindromic(char[] charArray, int left, int right) {
+    while (left < right) {
+      if (charArray[left] != charArray[right]) {
+        return false;
+      }
+      left++;
+      right--;
+    }
+    return true;
+  }
+
+
+  /**
+   * 5. 最长回文子串 中心扩散算法
+   */
+  public static String longestPalindrome(String s) {
+    if (s == null || s.length() < 1) {
+      return "";
+    }
+    int start = 0, end = 0;
+    for (int i = 0; i < s.length(); i++) {
+      int len1 = expandAroundCenter(s, i, i);
+      int len2 = expandAroundCenter(s, i, i + 1);
+      int len = Math.max(len1, len2);
+      if (len > end - start) {
+        start = i - (len - 1) / 2;
+        end = i + len / 2;
+      }
+    }
+    return s.substring(start, end + 1);
+  }
+
+  public static int expandAroundCenter(String s, int left, int right) {
+    while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+      --left;
+      ++right;
+    }
+    return right - left - 1;
+  }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
 //    String s = "pwwkew";
 //    System.out.println(lengthOfLongestSubstring(s));
-    int[] nums = {3, 2, 1, 5, 6, 4};
-    findKthLargest(nums, 2);
+//    int[] nums = {3, 2, 1, 5, 6, 4};
+//    findKthLargest(nums, 2);
 
+    longestPalindrome("babad");
 
   }
 
