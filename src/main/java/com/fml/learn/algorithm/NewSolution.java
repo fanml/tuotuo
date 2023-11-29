@@ -521,6 +521,7 @@ public class NewSolution {
   /**
    * 102.二叉树的层序遍历 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。 输入：root =
    * [3,9,20,null,null,15,7] 输出：[[3],[9,20],[15,7]]
+   * 队列
    */
   public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
@@ -546,6 +547,58 @@ public class NewSolution {
     }
     return result;
   }
+
+  /**
+   * 33. 搜索旋转排序数组
+   * <p>
+   * <p>
+   * 整数数组 nums 按升序排列，数组中的值 互不相同 。 在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，使数组变为
+   * [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如，
+   * [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。 给你 旋转后 的数组 nums 和一个整数 target ，如果 nums
+   * 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。 你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。
+   * <p>
+   * 输入：nums = [4,5,6,7,0,1,2], target = 0 输出：4
+   * 二分查找
+   */
+  public int search(int[] nums, int target) {
+    if (nums == null) {
+      return -1;
+    }
+    int length = nums.length;
+    if (nums.length == 1) {
+      return nums[0] == target ? nums[0] : -1;
+    }
+    if (nums[0] == target) {
+      return 0;
+    }
+    if (nums[length - 1] == target) {
+      return length - 1;
+    }
+    int r = 0, l = length - 1;
+    int mid = 0;
+    while (r <= l) {
+      mid = (r + l) / 2;
+      if (nums[mid] == target) {
+        return mid;
+      }
+      if (nums[0] < nums[mid]) {
+        if (nums[0] < target && target < nums[mid]) {
+          l = mid - 1;
+        } else {
+          r = mid + 1;
+        }
+
+      } else {
+        if (nums[mid] < target && target < nums[length - 1]) {
+          r = mid + 1;
+        } else {
+          l = mid - 1;
+        }
+      }
+    }
+    return -1;
+  }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
