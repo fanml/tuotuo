@@ -522,6 +522,8 @@ public class NewSolution {
   /**
    * 102.二叉树的层序遍历 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。 输入：root =
    * [3,9,20,null,null,15,7] 输出：[[3],[9,20],[15,7]] 队列
+   * <p>
+   * 广度优先搜索
    */
   public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
@@ -547,6 +549,45 @@ public class NewSolution {
     }
     return result;
   }
+
+  /**
+   * 103. 二叉树的锯齿形层序遍历 给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+   * <p>
+   * 输入：root = [3,9,20,null,null,15,7] 输出：[[3],[20,9],[15,7]]
+   * <p>
+   * 广度优先搜索
+   */
+  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    List<List<Integer>> result = new LinkedList<>();
+    if (root == null) {
+      return result;
+    }
+    Queue<TreeNode> nodeQueue = new LinkedList<>();
+    nodeQueue.offer(root);
+    boolean isOrder = true;
+    while (!nodeQueue.isEmpty()) {
+      Deque<Integer> list = new LinkedList<>();
+      int size = nodeQueue.size();
+      for (int i = 0; i < size; i++) {
+        TreeNode node = nodeQueue.poll();
+        if (isOrder) {
+          list.offerLast(node.val);
+        } else {
+          list.offerFirst(node.val);
+        }
+        if (node.left != null) {
+          nodeQueue.offer(node.left);
+        }
+        if (node.right != null) {
+          nodeQueue.offer(node.right);
+        }
+      }
+      isOrder = !isOrder;
+      result.add(new LinkedList<>(list));
+    }
+    return result;
+  }
+
 
   /**
    * 33. 搜索旋转排序数组
