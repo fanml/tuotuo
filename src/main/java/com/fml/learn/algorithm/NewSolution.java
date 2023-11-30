@@ -4,6 +4,7 @@ import com.fml.learn.algorithm.structure.ListNode;
 import com.fml.learn.algorithm.structure.TreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -619,11 +620,9 @@ public class NewSolution {
   }
 
   /**
-   * 141. 环形链表
-   * 给你一个链表的头节点 head ，判断链表中是否有环。
-   * 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
-   * 如果链表中存在环 ，则返回 true 。 否则，返回 false 。
-   * 快慢双指针
+   * 141. 环形链表 给你一个链表的头节点 head ，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。
+   * 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。 如果链表中存在环
+   * ，则返回 true 。 否则，返回 false 。 快慢双指针
    */
   public boolean hasCycle(ListNode head) {
     if (head == null || head.next == null) {
@@ -640,6 +639,35 @@ public class NewSolution {
     }
     return true;
 
+  }
+
+  /**
+   * 20. 有效的括号 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。
+   * 左括号必须以正确的顺序闭合。 每个右括号都有一个对应的相同类型的左括号。
+   */
+  public boolean isValid(String s) {
+    // 长度是奇数时返回false
+    int length = s.length();
+    if (length % 2 == 1) {
+      return false;
+    }
+    Map<Character, Character> map = new HashMap<>();
+    map.put('}', '{');
+    map.put(']', '[');
+    map.put(')', '(');
+    Deque<Character> stack = new LinkedList<Character>();
+    for (int i = 0; i < length; i++) {
+      char c = s.charAt(i);
+      if (map.containsKey(c)) {
+        if (stack.isEmpty() || !stack.peek().equals(map.get(c))) {
+          return false;
+        }
+        stack.pop();
+      } else {
+        stack.push(c);
+      }
+    }
+    return stack.isEmpty();
   }
 
 
