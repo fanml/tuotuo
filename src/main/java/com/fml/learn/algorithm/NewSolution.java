@@ -520,8 +520,7 @@ public class NewSolution {
 
   /**
    * 102.二叉树的层序遍历 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。 输入：root =
-   * [3,9,20,null,null,15,7] 输出：[[3],[9,20],[15,7]]
-   * 队列
+   * [3,9,20,null,null,15,7] 输出：[[3],[9,20],[15,7]] 队列
    */
   public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
@@ -557,8 +556,7 @@ public class NewSolution {
    * [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。 给你 旋转后 的数组 nums 和一个整数 target ，如果 nums
    * 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。 你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。
    * <p>
-   * 输入：nums = [4,5,6,7,0,1,2], target = 0 输出：4
-   * 二分查找
+   * 输入：nums = [4,5,6,7,0,1,2], target = 0 输出：4 二分查找
    */
   public int search(int[] nums, int target) {
     if (nums == null) {
@@ -601,31 +599,49 @@ public class NewSolution {
 
 
   /**
-   * 121. 买卖股票的最佳时机
-   * 示例 2：
-   * 输入：[7,1,5,3,6,4]
-   * 输出：5
-   * 解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
-   *      注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
-   * 示例 2：
-   * 输入：prices = [7,6,4,3,1]
-   * 输出：0
+   * 121. 买卖股票的最佳时机 示例 2： 输入：[7,1,5,3,6,4] 输出：5 解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润
+   * = 6-1 = 5 。 注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。 示例 2： 输入：prices = [7,6,4,3,1] 输出：0
    * 解释：在这种情况下, 没有交易完成, 所以最大利润为 0。
-   *
+   * <p>
    * 动态规划
    */
   public int maxProfit(int[] prices) {
     int min = Integer.MAX_VALUE;
     int max = 0;
-    for(int i = 0;i<prices.length;i++){
-      if (min>prices[i]){
+    for (int i = 0; i < prices.length; i++) {
+      if (min > prices[i]) {
         min = prices[i];
-      }else if(prices[i]-min >max) {
-        max = prices[i]-min;
+      } else if (prices[i] - min > max) {
+        max = prices[i] - min;
       }
     }
     return max;
   }
+
+  /**
+   * 141. 环形链表
+   * 给你一个链表的头节点 head ，判断链表中是否有环。
+   * 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
+   * 如果链表中存在环 ，则返回 true 。 否则，返回 false 。
+   * 快慢双指针
+   */
+  public boolean hasCycle(ListNode head) {
+    if (head == null || head.next == null) {
+      return false;
+    }
+    ListNode slow = head;
+    ListNode fast = head.next;
+    while (slow != fast) {
+      if (fast == null || fast.next == null) {
+        return false;
+      }
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+    return true;
+
+  }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
