@@ -47,6 +47,38 @@ public class SortAll {
   }
 
   /**
+   * 快速排序
+   */
+  public static void quickSort(int[] arrays, int left, int right) {
+    // 左指针大于右指针 退出递归
+    if (left > right) {
+      return;
+    }
+    int l = left; // 左指针
+    int r = right; // 右指针
+    int pivot = arrays[left]; // 基点
+    int temp = 0;
+    while (l < r) { //左指针和右指针相等时 推出循环
+      while (pivot <= arrays[r] && l < r) { // 基点小于右边节点
+        r--;
+      }
+      while (pivot >= arrays[l] && l < r) { // 基点大于右边节点
+        l++;
+      }
+      if (l <= r) { // 左右指针相遇 交换
+        temp = arrays[r];
+        arrays[r] = arrays[l];
+        arrays[l] = temp;
+      }
+    }
+    // 基点归位
+    arrays[left] = arrays[l];
+    arrays[l] = pivot;
+    quickSort(arrays, left, l - 1);
+    quickSort(arrays, l + 1, right);
+  }
+
+  /**
    * 插入排序
    *
    * @param a

@@ -844,6 +844,37 @@ public class NewSolution {
 
   }
 
+  /**
+   * 912.快速排序
+   */
+  public static void quickSort(int[] arrays, int left, int right) {
+    if (left > right) {
+      return;
+    }
+    int l = left;
+    int r = right;
+    int tmp = 0;
+    int pivot = arrays[left];
+    while (l < r) {
+      while (pivot <= arrays[r] && l < r) {
+        r--;
+      }
+      while (pivot >= arrays[l] && l < r) {
+        l++;
+      }
+      if (l <= r) {
+        tmp = arrays[r];
+        arrays[r] = arrays[l];
+        arrays[l] = tmp;
+      }
+    }
+
+    arrays[left] = arrays[l];
+    arrays[l] = pivot;
+    quickSort(arrays, left, l - 1);
+    quickSort(arrays, l + 1, right);
+  }
+
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
