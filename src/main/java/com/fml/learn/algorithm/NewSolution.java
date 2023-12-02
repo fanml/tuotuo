@@ -875,6 +875,7 @@ public class NewSolution {
     quickSort(arrays, l + 1, right);
   }
 
+
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
