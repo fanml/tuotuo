@@ -877,11 +877,9 @@ public class NewSolution {
   }
 
   /**
-   * 46. 全排列
-   * 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案
-   * 输入：nums = [1,2,3]
+   * 46. 全排列 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案 输入：nums = [1,2,3]
    * 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-   *
+   * <p>
    * 回溯
    */
   public List<List<Integer>> permute(int[] nums) {
@@ -910,6 +908,51 @@ public class NewSolution {
       // 撤销操作
       Collections.swap(output, first, i);
     }
+  }
+
+  /**
+   * 54. 螺旋矩阵
+   * 给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+   *
+   * 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+   * 输出：[1,2,3,6,9,8,7,4,5]
+   *
+   *  按层模拟
+   */
+  public List<Integer> spiralOrder(int[][] matrix) {
+    List<Integer> order = new ArrayList<Integer>();
+    if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+      return order;
+    }
+    int rows = matrix.length, columns = matrix[0].length;
+    int left = 0, right = columns - 1, top = 0, bottom = rows - 1;
+    while (left <= right && top <= bottom) {
+      // 从左取到右
+      for (int column = left; column <= right; column++) {
+        order.add(matrix[top][column]);
+      }
+      // 从上去到下
+      for (int row = top + 1; row <= bottom; row++) {
+        order.add(matrix[row][right]);
+      }
+      // 没重合
+      if (left < right && top < bottom) {
+        // 从右取到左
+        for (int column = right - 1; column > left; column--) {
+          order.add(matrix[bottom][column]);
+        }
+        // 从下取到上
+        for (int row = bottom; row > top; row--) {
+          order.add(matrix[row][left]);
+        }
+      }
+      // 缩小范围
+      left++;
+      right--;
+      top++;
+      bottom--;
+    }
+    return order;
   }
 
 
