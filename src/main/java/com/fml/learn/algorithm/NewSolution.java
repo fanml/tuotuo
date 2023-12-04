@@ -141,6 +141,9 @@ public class NewSolution {
   }
 
 
+  /**
+   * 不耗用额外内存
+   */
   public ListNode reverseBetween2(ListNode head, int left, int right) {
     // 设置 dummyNode 是这一类问题的一般做法
     ListNode dummyNode = new ListNode(-1);
@@ -1005,6 +1008,47 @@ public class NewSolution {
       bottom--;
     }
     return order;
+  }
+
+  /**
+   * 160. 相交链表
+   * <p>
+   * 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
+   * <p>
+   * hash集合解法
+   */
+  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    Set<ListNode> mySet = new HashSet<>();
+    while (headA != null) {
+      mySet.add(headA);
+      headA = headA.next;
+    }
+    while (headB != null) {
+      if (mySet.contains(headB)) {
+        return headB;
+      }
+      headB = headB.next;
+    }
+    return null;
+  }
+
+  /**
+   * 160. 相交链表
+   *
+   * 双指针
+   */
+  public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+    if (headA == null || headB == null) {
+      return null;
+    }
+    ListNode pA = headA;
+    ListNode pB = headB;
+    while (pA != pB) {
+      pA = pA == null ? headB : pA.next;
+      pB = pB == null ? headA : pB.next;
+    }
+    return pA;
+
   }
 
   public static void main(String[] args) {
