@@ -100,6 +100,67 @@ public class NewSolution {
   }
 
   /**
+   * 92. 反转链表 II
+   * <p>
+   * 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。 请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
+   * 输入：head = [1,2,3,4,5], left = 2, right = 4 输出：[1,4,3,2,5]
+   */
+  public ListNode reverseBetween(ListNode head, int left, int right) {
+    // 因为头节点有可能发生变化，使用虚拟头节点可以避免复杂的分类讨论
+    ListNode dummyNode = new ListNode(-1);
+    dummyNode.next = head;
+
+    ListNode pre = dummyNode;
+    // 第 1 步：从虚拟头节点走 left - 1 步，来到 left 节点的前一个节点
+    // 建议写在 for 循环里，语义清晰
+    for (int i = 0; i < left - 1; i++) {
+      pre = pre.next;
+    }
+
+    // 第 2 步：从 pre 再走 right - left + 1 步，来到 right 节点
+    ListNode rightNode = pre;
+    for (int i = 0; i < right - left + 1; i++) {
+      rightNode = rightNode.next;
+    }
+
+    // 第 3 步：切断出一个子链表（截取链表）
+    ListNode leftNode = pre.next;
+    ListNode curr = rightNode.next;
+
+    // 注意：切断链接
+    pre.next = null;
+    rightNode.next = null;
+
+    // 第 4 步：同第 206 题，反转链表的子区间
+    reverseList(leftNode);
+
+    // 第 5 步：接回到原来的链表中
+    pre.next = rightNode;
+    leftNode.next = curr;
+    return dummyNode.next;
+  }
+
+
+  public ListNode reverseBetween2(ListNode head, int left, int right) {
+    // 设置 dummyNode 是这一类问题的一般做法
+    ListNode dummyNode = new ListNode(-1);
+    dummyNode.next = head;
+    ListNode pre = dummyNode;
+    for (int i = 0; i < left - 1; i++) {
+      pre = pre.next;
+    }
+    ListNode cur = pre.next;
+    ListNode next;
+    for (int i = 0; i < right - left; i++) {
+      next = cur.next;
+      cur.next = next.next;
+      next.next = pre.next;
+      pre.next = next;
+    }
+    return dummyNode.next;
+  }
+
+  /**
    * 146. LRU 缓存 请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。 实现 LRUCache 类： LRUCache(int capacity) 以 正整数
    * 作为容量 capacity 初始化 LRU 缓存 int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。 void put(int key,
    * int value) 如果关键字 key 已经存在，则变更其数据值 value ；如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 capacity
@@ -222,7 +283,6 @@ public class NewSolution {
     }
   }
 
-
   /**
    * 215. 数组中的第K个最大元素 中等 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
    * <p>
@@ -313,7 +373,6 @@ public class NewSolution {
     }
     return new ListNode[]{tail, head};
   }
-
 
   /**
    * 15. 三数之和 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足
@@ -490,7 +549,6 @@ public class NewSolution {
     return true;
   }
 
-
   /**
    * 5. 最长回文子串 中心扩散算法
    */
@@ -518,7 +576,6 @@ public class NewSolution {
     }
     return right - left - 1;
   }
-
 
   /**
    * 102.二叉树的层序遍历 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。 输入：root =
@@ -611,7 +668,6 @@ public class NewSolution {
     return root; // 2. if(left != null and right != null)
   }
 
-
   /**
    * 33. 搜索旋转排序数组
    * <p>
@@ -661,7 +717,6 @@ public class NewSolution {
     }
     return -1;
   }
-
 
   /**
    * 121. 买卖股票的最佳时机 示例 2： 输入：[7,1,5,3,6,4] 输出：5 解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润
@@ -733,7 +788,6 @@ public class NewSolution {
     }
     return stack.isEmpty();
   }
-
 
   /**
    * 200. 岛屿数量 给你一个由 '1'（陆地）和 '0'（水）组成的的二维网格，请你计算网格中岛屿的数量。 岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。
@@ -911,13 +965,11 @@ public class NewSolution {
   }
 
   /**
-   * 54. 螺旋矩阵
-   * 给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
-   *
-   * 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
-   * 输出：[1,2,3,6,9,8,7,4,5]
-   *
-   *  按层模拟
+   * 54. 螺旋矩阵 给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+   * <p>
+   * 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]] 输出：[1,2,3,6,9,8,7,4,5]
+   * <p>
+   * 按层模拟
    */
   public List<Integer> spiralOrder(int[][] matrix) {
     List<Integer> order = new ArrayList<Integer>();
@@ -954,7 +1006,6 @@ public class NewSolution {
     }
     return order;
   }
-
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";

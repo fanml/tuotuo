@@ -70,6 +70,47 @@ public class NewSolutionTest {
     return newHead;
   }
 
+  public ListNode reverseBetween(ListNode head, int left, int right) {
+    ListNode dummyNode = new ListNode(-1);
+    dummyNode.next = head;
+    ListNode pre = dummyNode;
+    for (int i = 0; i < left - 1; i++) {
+      pre = pre.next;
+    }
+    ListNode rightNode = pre;
+    for (int i = 0; i < right - left + 1; i++) {
+      rightNode = rightNode.next;
+    }
+    ListNode leftNode = pre.next;
+    ListNode curr = rightNode.next;
+
+    pre.next = null;
+    rightNode.next = null;
+
+    reverseList(leftNode);
+    pre.next = rightNode;
+    leftNode.next = curr;
+    return dummyNode;
+  }
+
+  public ListNode reverseBetween2(ListNode head, int left, int right) {
+    ListNode dummyNode = new ListNode(-1);
+    dummyNode.next = head;
+    ListNode pre = dummyNode;
+    for (int i = 0; i < left - 1; i++) {
+      pre = pre.next;
+    }
+    ListNode curr = pre.next;
+    ListNode next;
+    for (int i = 0; i < right - left; i++) {
+      next = curr.next;
+      curr.next = next.next;
+      next.next = pre.next;
+      pre.next = next;
+    }
+    return dummyNode.next;
+  }
+
   //  public class LRUCache {
 //
 //    /**
@@ -301,7 +342,7 @@ public class NewSolutionTest {
   public ListNode[] myReverse(ListNode head, ListNode tail) {
     ListNode prev = tail.next;
     ListNode p = head;
-    while (prev != tail){
+    while (prev != tail) {
       ListNode nex = p.next;
       p.next = prev;
       prev = p;
