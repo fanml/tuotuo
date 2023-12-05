@@ -487,6 +487,39 @@ public class NewSolution {
   }
 
   /**
+   * 23. 合并 K 个升序链表
+   * <p>
+   * 给你一个链表数组，每个链表都已经按升序排列。 请你将所有链表合并到一个升序链表中，返回合并后的链表。
+   * <p>
+   * 顺序合并
+   */
+  public ListNode mergeKLists(ListNode[] lists) {
+    ListNode ans = null;
+    for (int i = 0; i < lists.length; i++) {
+      mergeTwoLists(ans, lists[i]);
+    }
+    return ans;
+  }
+
+  /**
+   * 23. 合并 K 个升序链表 分治 俩俩合并
+   */
+  public ListNode mergeKLists2(ListNode[] lists) {
+    return merge(lists, 0, lists.length - 1);
+  }
+
+  public ListNode merge(ListNode[] lists, int l, int r) {
+    if (l == r) {
+      return lists[l];
+    }
+    if (l > r) {
+      return null;
+    }
+    int mid = (l + r) / 2;
+    return mergeTwoLists(merge(lists, l, mid), merge(lists, mid + 1, r));
+  }
+
+  /**
    * 1. 两数之和 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
    * 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。 你可以按任意顺序返回答案。 输入：nums = [2,7,11,15], target = 9
    * 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1]
@@ -1034,7 +1067,7 @@ public class NewSolution {
 
   /**
    * 160. 相交链表
-   *
+   * <p>
    * 双指针
    */
   public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
