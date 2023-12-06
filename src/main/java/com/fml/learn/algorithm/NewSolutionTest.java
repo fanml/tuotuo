@@ -352,4 +352,25 @@ public class NewSolutionTest {
   }
 
 
+  public ListNode removeNthFromEnd(ListNode head, int n) {
+    if (head == null){
+      return head;
+    }
+    ListNode dummnyNode = new ListNode(-1);
+    dummnyNode.next = head;
+    ListNode slow = dummnyNode;
+    ListNode fast = dummnyNode;
+    for(int i=0;i<n+1;i++){
+     fast = fast.next;
+    }
+    while (fast!=null){
+      fast = fast.next;
+      slow = slow.next;
+    }
+    slow.next = slow.next.next;
+    return dummnyNode.next;
+  }
+
+
+
 }
