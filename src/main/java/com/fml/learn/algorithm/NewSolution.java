@@ -1140,7 +1140,7 @@ public class NewSolution {
 
   /**
    * 300. 最长递增子序列
-   *
+   * <p>
    * 贪心+二分 没学会抄一遍吧
    */
   public int lengthOfLIS1(int[] nums) {
@@ -1168,6 +1168,26 @@ public class NewSolution {
       }
     }
     return len;
+  }
+
+  /**
+   * 876. 链表的中间结点 给你单链表的头结点 head ，请你找出并返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。
+   * <p>
+   * 输入：head = [1,2,3,4,5] 输出：[3,4,5] 解释：链表只有一个中间结点，值为 3 。
+   * <p>
+   * 输入：head = [1,2,3,4,5,6] 输出：[4,5,6] 解释：该链表有两个中间结点，值分别为 3 和 4 ，返回第二个结点。
+   * <p>
+   * <p>
+   * 快慢指针
+   */
+  public ListNode middleNode(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+    while (fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+    return slow;
   }
 
   public static void main(String[] args) {
