@@ -796,6 +796,45 @@ public class NewSolution {
 
   }
 
+
+  /**
+   * 142. 环形链表 II
+   * <p>
+   * 给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+   * <p>
+   * 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0
+   * 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
+   * <p>
+   * 不允许修改 链表
+   * <p>
+   * 输入：head = [3,2,0,-4], pos = 1 输出：返回索引为 1 的链表节点 解释：链表中有一个环，其尾部连接到第二个节点。
+   * <p>
+   * 双指针
+   */
+  public ListNode detectCycle(ListNode head) {
+    ListNode fast = head;
+    ListNode slow = head;
+    // 第一次相遇
+    while (true) {
+      if (fast == null || fast.next == null) {
+        return null;
+      }
+      fast = fast.next.next;
+      slow = slow.next;
+      if (fast == slow) {
+        break;
+      }
+    }
+    // 快节点返回头节点
+    fast = head;
+    while (fast != slow) {
+      slow = slow.next;
+      fast = fast.next;
+    }
+    return fast;
+  }
+
+
   /**
    * 20. 有效的括号 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。
    * 左括号必须以正确的顺序闭合。 每个右括号都有一个对应的相同类型的左括号。
