@@ -1190,6 +1190,44 @@ public class NewSolution {
     return slow;
   }
 
+  /**
+   * 143. 重排链表
+   * <p>
+   * 给定一个单链表 L 的头节点 head ，单链表 L 表示为：
+   * <p>
+   * L0 → L1 → … → Ln - 1 → Ln 请将其重新排列后变为：
+   * <p>
+   * L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → … 不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+   * <p>
+   * 输入：head = [1,2,3,4] 输出：[1,4,2,3]
+   * <p>
+   * 输入：head = [1,2,3,4,5] 输出：[1,5,2,4,3]
+   * <p>
+   * <p>
+   * 寻找链表中点 + 链表逆序 + 合并链表
+   */
+  public void reorderList(ListNode head) {
+    ListNode midNode = middleNode(head);
+    ListNode l1 = head;
+    ListNode l2 = midNode.next;
+    midNode.next = null;
+    l2 = reverseList(l2);
+    mergeList(l1, l2);
+  }
+
+  public void mergeList(ListNode l1, ListNode l2) {
+    ListNode l1_tmp;
+    ListNode l2_tmp;
+    while (l1 != null && l2 != null) {
+      l1_tmp = l1.next;
+      l2_tmp = l2.next;
+      l1.next = l2;
+      l1 = l1_tmp;
+      l2.next = l1;
+      l2 = l2_tmp;
+    }
+  }
+
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
