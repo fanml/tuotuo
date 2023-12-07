@@ -5,6 +5,7 @@ import com.fml.learn.algorithm.structure.TreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1269,13 +1270,12 @@ public class NewSolution {
 
   /**
    * 42. 接雨水
-   *
+   * <p>
    * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
-   *
-   * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
-   * 输出：6
-   * 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
-   *
+   * <p>
+   * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1] 输出：6 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1]
+   * 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
+   * <p>
    * 双指针 这题没怎么会 还得看
    */
   public int trap(int[] height) {
@@ -1298,28 +1298,65 @@ public class NewSolution {
 
   /**
    * 19. 删除链表的倒数第 N 个结点
-   *
+   * <p>
    * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
-   *
+   * <p>
    * 双指针
    */
   public ListNode removeNthFromEnd(ListNode head, int n) {
-    if (head == null){
+    if (head == null) {
       return head;
     }
     ListNode dummnyNode = new ListNode(-1);
     dummnyNode.next = head;
     ListNode slow = dummnyNode;
     ListNode fast = dummnyNode;
-    for(int i=0;i<n+1;i++){
+    for (int i = 0; i < n + 1; i++) {
       fast = fast.next;
     }
-    while (fast!=null){
+    while (fast != null) {
       fast = fast.next;
       slow = slow.next;
     }
     slow.next = slow.next.next;
     return dummnyNode.next;
+  }
+
+  /**
+   * 56. 合并区间
+   * <p>
+   * 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回
+   * 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间 。
+   * <p>
+   * 输入：intervals = [[1,3],[2,6],[8,10],[15,18]] 输出：[[1,6],[8,10],[15,18]] 解释：区间 [1,3] 和 [2,6] 重叠,
+   * 将它们合并为 [1,6]
+   * <p>
+   * 排序
+   */
+  public int[][] merge(int[][] intervals) {
+    // 按照子集左元素排序
+    // 第一个子集近结果集，比较后边子集的右元素和结果集中的子集的左元素 大于加入结果集
+    // 小于则将右元素替换为左元素
+    if (intervals.length == 0) {
+      return new int[0][2];
+    }
+    Arrays.sort(intervals, new Comparator<int[]>() {
+      @Override
+      public int compare(int[] interval1, int[] interval2) {
+        return interval1[0] - interval2[0];
+      }
+    });
+    List<int[]> merged = new ArrayList<int[]>();
+    for (int i = 0; i < intervals.length; i++) {
+      int l = intervals[i][0];
+      int r = intervals[i][1];
+      if (merged.size() == 0 || merged.get(merged.size() - 1)[1] < l) {
+        merged.add(new int[]{l, r});
+      } else {
+        merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], r);
+      }
+    }
+    return merged.toArray(new int[merged.size()][]);
   }
 
   public static void main(String[] args) {
