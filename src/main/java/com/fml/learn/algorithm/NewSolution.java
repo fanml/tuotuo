@@ -756,6 +756,32 @@ public class NewSolution {
     return -1;
   }
 
+
+  /**
+   * 704. 二分查找
+   * <p>
+   * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
+   * <p>
+   * 示例 1:
+   * <p>
+   * 输入: nums = [-1,0,3,5,9,12], target = 9 输出: 4 解释: 9 出现在 nums 中并且下标为 4 示例 2:
+   */
+  public int searchTwo(int[] nums, int target) {
+    int l = 0;
+    int r = nums.length - 1;
+    while (l <= r) {
+      int mid = (r - l) / 2 + l;
+      if (target == nums[mid]) {
+        return mid;
+      } else if (nums[mid] > target) {
+        r = mid - 1;
+      } else {
+        l = mid + 1;
+      }
+    }
+    return -1;
+  }
+
   /**
    * 121. 买卖股票的最佳时机 示例 2： 输入：[7,1,5,3,6,4] 输出：5 解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润
    * = 6-1 = 5 。 注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。 示例 2： 输入：prices = [7,6,4,3,1] 输出：0
