@@ -1361,24 +1361,23 @@ public class NewSolution {
 
 
   /**
-   *124. 二叉树中的最大路径和
-   *
+   * 124. 二叉树中的最大路径和
+   * <p>
    * 二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。
-   *
+   * <p>
    * 路径和 是路径中各节点值的总和。
-   *
+   * <p>
    * 给你一个二叉树的根节点 root ，返回其 最大路径和 。
-   *
-   * 输入：root = [-10,9,20,null,null,15,7]
-   * 输出：42
-   * 解释：最优路径是 15 -> 20 -> 7 ，路径和为 15 + 20 + 7 = 42
-   *
+   * <p>
+   * 输入：root = [-10,9,20,null,null,15,7] 输出：42 解释：最优路径是 15 -> 20 -> 7 ，路径和为 15 + 20 + 7 = 42
    */
   public int maxPathSum(TreeNode root) {
     maxGain(root);
     return maxSum;
   }
+
   int maxSum = Integer.MIN_VALUE;
+
   public int maxGain(TreeNode node) {
     if (node == null) {
       return 0;
@@ -1398,6 +1397,74 @@ public class NewSolution {
     // 返回节点的最大贡献值
     return node.val + Math.max(leftGain, rightGain);
   }
+
+  /**
+   * 94. 二叉树的中序遍历
+   *
+   * <p>
+   * 输入：root = [1,null,2,3] 输出：[1,3,2]
+   * <p>
+   * 递归
+   */
+  public List<Integer> inorderTraversal(TreeNode root) {
+    if (root == null) {
+      return new ArrayList<>();
+    }
+    List<Integer> ans = new ArrayList<>();
+    inorder(root, ans);
+    return ans;
+  }
+
+  private void inorder(TreeNode root, List<Integer> ans) {
+    if (root == null) {
+      return;
+    }
+    inorder(root.left, ans);
+    ans.add(root.val);
+    inorder(root.right, ans);
+  }
+
+  /**
+   * 94. 二叉树的中序遍历
+   * <p>
+   * Morris
+   */
+  public List<Integer> inorderTraversal2(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+    // 首先把根节点赋值给cur
+    TreeNode cur = root;
+    // 如果cur不为空就继续遍历
+    while (cur != null) {
+      if (cur.left == null) {
+        // 如果当前节点cur的左子节点为空，就访问当前节点cur
+        // 接着让当前节点cur指向他的右子节点
+        ans.add(cur.val);
+        cur = cur.right;
+      } else {
+        TreeNode pre = cur.left;
+        // 查找pre节点，注意这里有个判断就是pre的右子节点不能等于cur
+        while (pre.right != null && pre.right != cur) {
+          pre = pre.right;
+        }
+        // 如果pre节点的右指针指向空，我们就让他指向当前节点cur
+        // 然后当前节点cur指向他的左子节点
+        if (pre.right == null) {
+          pre.right = cur;
+          cur = cur.left;
+        } else {
+          // 如果pre节点的右指针不为空，那么他肯定是指向cur的
+          // 表示cur的子节点都遍历完了，我们需要让pre的右指针指向null，目的是把树还原，然后再访问当前节点cur
+          // 最后再让当前节点cur指向他的右子节点
+          pre.right = null;
+          ans.add(cur.val);
+          cur = cur.right;
+        }
+
+      }
+    }
+    return ans;
+  }
+
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
