@@ -1551,6 +1551,33 @@ public class NewSolution {
     return max;
   }
 
+  /**
+   * 199. 二叉树的右视图
+   * <p>
+   * 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+   * <p>
+   * 输入: [1,2,3,null,5,null,4] 输出: [1,3,4]
+   * <p>
+   * DFS
+   */
+  public List<Integer> rightSideView(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+    rightSideViewDFS(root, 0, ans);
+    return ans;
+  }
+
+  private void rightSideViewDFS(TreeNode root, int level, List<Integer> ans) {
+    if (root == null) {
+      return;
+    }
+    // 只取第一个元素
+    if (level == ans.size()) {
+      ans.add(root.val);
+    }
+    rightSideViewDFS(root.right, level + 1, ans);
+    rightSideViewDFS(root.left, level + 1, ans);
+  }
+
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
