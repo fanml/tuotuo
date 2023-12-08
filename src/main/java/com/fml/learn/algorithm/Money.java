@@ -14,7 +14,7 @@ public class Money {
         return aaa;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //  System.out.println(String.valueOf(three()) + String.valueOf(three()) + String.valueOf(three()));
         //  System.out.println(String.valueOf(three()) + String.valueOf(three()) + String.valueOf(three()) + String.valueOf(three()) + String.valueOf(three()));
         System.out.println(redBlue());
