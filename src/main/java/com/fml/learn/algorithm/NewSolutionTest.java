@@ -353,17 +353,17 @@ public class NewSolutionTest {
 
 
   public ListNode removeNthFromEnd(ListNode head, int n) {
-    if (head == null){
+    if (head == null) {
       return head;
     }
     ListNode dummnyNode = new ListNode(-1);
     dummnyNode.next = head;
     ListNode slow = dummnyNode;
     ListNode fast = dummnyNode;
-    for(int i=0;i<n+1;i++){
-     fast = fast.next;
+    for (int i = 0; i < n + 1; i++) {
+      fast = fast.next;
     }
-    while (fast!=null){
+    while (fast != null) {
       fast = fast.next;
       slow = slow.next;
     }
@@ -371,6 +371,43 @@ public class NewSolutionTest {
     return dummnyNode.next;
   }
 
+  /**
+   * 82. 删除排序链表中的重复元素 II
+   *
+   * 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。
+   *
+   * 输入：head = [1,2,3,3,4,4,5]
+   * 输出：[1,2,5]
+   *
+   */
+  public ListNode deleteDuplicates(ListNode head) {
+    if (head == null) {
+      return head;
+    }
+    ListNode dummny = new ListNode(-1);
+    dummny.next = head;
+    ListNode pre = dummny;
+    ListNode cur = head;
+    while (cur != null && cur.next != null) {
+      boolean a = false;
+      while (cur.next != null && cur.val == cur.next.val) {
+        cur = cur.next;
+        a = true;
+      }
+      if (a) {
+        cur = cur.next;
+        pre.next = cur;
+
+        a = false;
+      } else {
+        cur = cur.next;
+        pre = pre.next;
+      }
+
+
+    }
+    return dummny.next;
+  }
 
 
 }
