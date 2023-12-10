@@ -1580,12 +1580,10 @@ public class NewSolution {
 
   /**
    * 82. 删除排序链表中的重复元素 II
-   *
+   * <p>
    * 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。
-   *
-   * 输入：head = [1,2,3,3,4,4,5]
-   * 输出：[1,2,5]
-   *
+   * <p>
+   * 输入：head = [1,2,3,3,4,4,5] 输出：[1,2,5]
    */
   public ListNode deleteDuplicates(ListNode head) {
     if (head == null) {
@@ -1607,6 +1605,35 @@ public class NewSolution {
     }
 
     return dummy.next;
+  }
+
+  /**
+   * 69. x 的平方根
+   * <p>
+   * 给你一个非负整数 x ，计算并返回 x 的 算术平方根 。
+   * <p>
+   * 由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。
+   * <p>
+   * 注意：不允许使用任何内置指数函数和算符，例如 pow(x, 0.5) 或者 x ** 0.5 。
+   * <p>
+   * 示例 1：
+   * <p>
+   * 输入：x = 4 输出：2 示例 2：
+   * <p>
+   * 输入：x = 8 输出：2
+   */
+  public int mySqrt(int x) {
+    int l = 0, r = x, ans = -1;
+    while (l <= r) {
+      int mid = (r - l) / 2 + l;
+      if (mid * mid <= x) {
+        ans = mid;
+        l = mid + 1;
+      } else {
+        r = mid - 1;
+      }
+    }
+    return ans;
   }
 
   public static void main(String[] args) {
