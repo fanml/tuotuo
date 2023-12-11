@@ -191,17 +191,17 @@ public class SortAll {
   }
 
   /**
-   * 插入排序
+   * 插入排序 把最小的插入到最前边
    *
    * @param a
    * @param <T>
    */
   public static <T extends Comparable<? super T>> void insertSort(T[] a) {
     int j;
-    for (int p = 1; p < a.length; p++) {
+    for (int p = 1; p < a.length; p++) { //从第2个元素开始每次都要和他前面的进行比较
       T tmp = a[p];
-      for (j = p; j > 0 && tmp.compareTo(a[j - 1]) < 0; j--) {
-        a[j] = a[j - 1];
+      for (j = p; j > 0 && tmp.compareTo(a[j - 1]) < 0; j--) {  //只要num[j-1]<tmp就终止循环，因为前面的是有序的，也一定是<，不用再比较了
+        a[j] = a[j - 1]; //往后挪位置，腾出位置让tmp插入
       }
       a[j] = tmp;
     }
@@ -223,6 +223,62 @@ public class SortAll {
         }
         a[j] = tmp;
       }
+    }
+  }
+
+
+  /**
+   * 归并排序  拆分成n个子数组排序后再合并
+   *
+   * @param arr
+   * @param low
+   * @param high
+   * @param tmp
+   */
+  public static void mergeSort(int[] arr, int low, int high, int[] tmp) {
+    if (low < high) {
+      // 求中间位置，用于将数组拆分成两部分
+      int mid = (low + high) / 2;
+      //对左边序列递归划分
+      mergeSort(arr, low, mid, tmp);
+      //对右边序列进行递归划分
+      mergeSort(arr, mid + 1, high, tmp);
+      //合并两个有序序列
+      merge(arr, low, mid, high, tmp);
+    }
+  }
+
+  public static void merge(int[] arr, int low, int mid, int high, int[] tmp) {
+    // 用于遍历 tmp 数组的指针
+    int i = 0;
+    //左边序列和右边序列起始索引
+    int j = low, k = mid + 1;
+    // 比较左右两个有序数组的元素，并按大小依次放入 tmp 数组中
+    while (j <= mid && k <= high) {
+      //左半区第一个元素小于右半区第一个元素
+      if (arr[j] < arr[k]) {
+        //接着往后继续比
+        tmp[i++] = arr[j++];
+      }
+      //右半区第一个元素更小，先放右半区第一个元素
+      else {
+        tmp[i++] = arr[k++];
+      }
+//            // 输出排序过程中数组 arr 的变化
+      System.out.println(Arrays.toString(arr));
+    }
+    //若左边序列还有剩余，则将其全部拷贝进tmp[]中
+    while (j <= mid) {
+      tmp[i++] = arr[j++];
+    }
+
+    while (k <= high) {
+      tmp[i++] = arr[k++];
+    }
+    // 将排好序的 tmp 数组复制到原数组 arr 中
+
+    for (int t = 0; t < i; t++) {
+      arr[low + t] = tmp[t];
     }
   }
 
