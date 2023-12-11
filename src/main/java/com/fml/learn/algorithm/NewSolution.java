@@ -1749,6 +1749,44 @@ public class NewSolution {
     }
   }
 
+  /**
+   * 8. 字符串转换整数 (atoi)
+   *
+   * 输入：s = "   -42"
+   * 输出：-42
+   */
+  public int myAtoi(String str) {
+    int length = str.length();
+    if (length == 0) {
+      return 0;
+    }
+    int i = 0;
+    boolean flag = true;
+    int ans = 0;
+    while (i < length && str.charAt(i) == ' ') {
+      i++;
+    }
+    if (i != 0 && i == length - 1) {
+      return 0;
+    }
+    if (i < length && str.charAt(i) == '-') {
+      flag = false;
+    }
+    if (i < length && str.charAt(i) == '-' || i < length && str.charAt(i) == '+') {
+      i++;
+    }
+
+    while (i < length && Character.isDigit(str.charAt(i))) {
+      int r = str.charAt(i) - '0';
+      if (ans > Integer.MAX_VALUE / 10 || (ans == Integer.MAX_VALUE / 10 && r > 7)) {
+        return flag ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+      }
+      ans = ans * 10 + r;
+      i++;
+    }
+    return flag ? ans : -ans;
+  }
+
   public static void main(String[] args) {
 //    String s = "abcabcbb";
 //    String s = "bbbbb";
