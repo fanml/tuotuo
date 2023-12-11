@@ -1175,6 +1175,43 @@ public class NewSolution {
   }
 
   /**
+   * 2. 两数相加
+   * 给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+   *
+   * 请你将两个数相加，并以相同形式返回一个表示和的链表。
+   *
+   * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+   *
+   * 输入：l1 = [2,4,3], l2 = [5,6,4]
+   * 输出：[7,0,8]
+   * 解释：342 + 465 = 807.
+   */
+  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    ListNode head = null, tail = null;
+    int add = 0;
+    while (l1 != null || l2 != null || add != 0) {
+      int a = l1 == null ? 0 : l1.val;
+      int b = l2 == null ? 0 : l2.val;
+      int temp = a + b + add;
+      int val = (temp) % 10;
+      if (head == null) {
+        head = tail = new ListNode(val);
+      } else {
+        tail.next = new ListNode(val);
+        tail = tail.next;
+      }
+      add = temp / 10;
+      if (l1 != null) {
+        l1 = l1.next;
+      }
+      if (l2 != null) {
+        l2 = l2.next;
+      }
+    }
+    return head;
+  }
+
+  /**
    * 300. 最长递增子序列 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
    * <p>
    * 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。
@@ -1751,9 +1788,8 @@ public class NewSolution {
 
   /**
    * 8. 字符串转换整数 (atoi)
-   *
-   * 输入：s = "   -42"
-   * 输出：-42
+   * <p>
+   * 输入：s = "   -42" 输出：-42
    */
   public int myAtoi(String str) {
     int length = str.length();
