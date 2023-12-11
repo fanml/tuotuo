@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import org.springframework.util.StringUtils;
 
 /**
  * gogogo 2023-11-20
@@ -1637,27 +1636,25 @@ public class NewSolution {
   }
 
   /**
-   * 70. 爬楼梯
-   * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
-   *
+   * 70. 爬楼梯 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+   * <p>
    * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
    */
   public int climbStairs(int n) {
     // f(n) = f(n-1)+f(n+1);
-    int p = 0,q=0,r=1;
-    for(int i = 1;i<=n;i++){
-      p=q;
-      q=r;
-      r=p+q;
+    int p = 0, q = 0, r = 1;
+    for (int i = 1; i <= n; i++) {
+      p = q;
+      q = r;
+      r = p + q;
     }
     return r;
   }
 
   /**
    * 148. 排序链表
-   *
-   * 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
-   * 归并排序 没会
+   * <p>
+   * 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 归并排序 没会
    */
   public ListNode sortList(ListNode head) {
     return sortList(head, null);
@@ -1705,6 +1702,51 @@ public class NewSolution {
       temp.next = temp2;
     }
     return dummyHead.next;
+  }
+
+  /**
+   * 31. 下一个排列 整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。
+   * <p>
+   * 例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。 整数数组的 下一个排列
+   * 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。
+   * <p>
+   * 例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。 类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。 而 arr = [3,2,1] 的下一个排列是
+   * [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。 给你一个整数数组 nums ，找出 nums 的下一个排列。
+   * <p>
+   * 必须 原地 修改，只允许使用额外常数空间。
+   */
+  public void nextPermutation(int[] nums) {
+    // 找到第一个比右边小的数字 较小数 尽可能靠右
+    int i = nums.length - 2;
+    while (i >= 0 && nums[i] >= nums[i + 1]) {
+      i--;
+    }
+    if (i >= 0) {
+      // 找到较大数 尽可能小
+      int j = nums.length - 1;
+      while (j >= 0 && nums[i] >= nums[j]) {
+        j--;
+      }
+      //  较小数与较大数交换
+      swap(nums, i, j);
+    }
+    // 使得后边的变为升序
+    reverse(nums, i + 1);
+  }
+
+  public void swap(int[] nums, int i, int j) {
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+  }
+
+  public void reverse(int[] nums, int start) {
+    int left = start, right = nums.length - 1;
+    while (left < right) {
+      swap(nums, left, right);
+      left++;
+      right--;
+    }
   }
 
   public static void main(String[] args) {
