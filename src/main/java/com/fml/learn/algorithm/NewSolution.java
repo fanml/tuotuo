@@ -1909,6 +1909,33 @@ public class NewSolution {
     return 0;
   }
 
+  /**
+   * LCR 140. 训练计划 II
+   *
+   * 给定一个头节点为 head 的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第 cnt 个训练项目编号。
+   *
+   *
+   *
+   * 示例 1：
+   *
+   * 输入：head = [2,4,7,8], cnt = 1
+   * 输出：8
+   *
+   * 双指针
+   */
+  public ListNode trainingPlan(ListNode head, int cnt) {
+    ListNode slow = head;
+    ListNode fast = head;
+    for(int i =0;i<cnt;i++){
+      fast = fast.next;
+    }
+    while (fast!=null){
+      fast = fast.next;
+      slow = slow.next;
+    }
+    return slow;
+  }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
