@@ -1823,26 +1823,17 @@ public class NewSolution {
 
   /**
    * 239. 滑动窗口最大值
-   *
+   * <p>
    * 给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
-   *
+   * <p>
    * 返回 滑动窗口中的最大值 。
-   *
+   * <p>
    * 示例 1：
-   *
-   * 输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
-   * 输出：[3,3,5,5,6,7]
-   * 解释：
-   * 滑动窗口的位置                最大值
-   * ---------------               -----
-   * [1  3  -1] -3  5  3  6  7       3
-   *  1 [3  -1  -3] 5  3  6  7       3
-   *  1  3 [-1  -3  5] 3  6  7       5
-   *  1  3  -1 [-3  5  3] 6  7       5
-   *  1  3  -1  -3 [5  3  6] 7       6
-   *  1  3  -1  -3  5 [3  6  7]      7
-   *
-   *
+   * <p>
+   * 输入：nums = [1,3,-1,-3,5,3,6,7], k = 3 输出：[3,3,5,5,6,7] 解释： 滑动窗口的位置                最大值
+   * ---------------               ----- [1  3  -1] -3  5  3  6  7       3 1 [3  -1  -3] 5  3  6  7
+   *      3 1  3 [-1  -3  5] 3  6  7       5 1  3  -1 [-3  5  3] 6  7       5 1  3  -1  -3 [5  3  6]
+   * 7       6 1  3  -1  -3  5 [3  6  7]      7
    */
   public int[] maxSlidingWindow(int[] nums, int k) {
     //边界条件的判断
@@ -1877,6 +1868,47 @@ public class NewSolution {
     }
     return res;
   }
+
+  /**
+   * 165. 比较版本号
+   *
+   * 示例 1：
+   *
+   * 输入：version1 = "1.01", version2 = "1.001"
+   * 输出：0
+   * 解释：忽略前导零，"01" 和 "001" 都表示相同的整数 "1"
+   * 示例 2：
+   *
+   * 输入：version1 = "1.0", version2 = "1.0.0"
+   * 输出：0
+   * 解释：version1 没有指定下标为 2 的修订号，即视为 "0"
+   * 示例 3：
+   *
+   * 输入：version1 = "0.1", version2 = "1.1"
+   * 输出：-1
+   * 解释：version1 中下标为 0 的修订号是 "0"，version2 中下标为 0 的修订号是 "1" 。0 < 1，所以 version1 < version2
+   */
+  public int compareVersion(String version1, String version2) {
+    String[] v1 = version1.split("\\.");
+    String[] v2 = version2.split("\\.");
+    for (int i = 0; i < v1.length || i < v2.length; i++) {
+      int x = 0, y = 0;
+      if (i < v1.length) {
+        x = Integer.parseInt(v1[i]);
+      }
+      if (i < v2.length) {
+        y = Integer.parseInt(v2[i]);
+      }
+      if (x > y) {
+        return 1;
+      }
+      if (x < y) {
+        return -1;
+      }
+    }
+    return 0;
+  }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
