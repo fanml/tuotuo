@@ -1964,57 +1964,54 @@ public class NewSolution {
     return len + 1;
   }
 
-
-  /**
-   * 155. 最小栈
-   * <p>
-   * 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
-   * <p>
-   * 实现 MinStack 类:
-   * <p>
-   * MinStack() 初始化堆栈对象。 void push(int val) 将元素val推入堆栈。 void pop() 删除堆栈顶部的元素。 int top() 获取堆栈顶部的元素。
-   * int getMin() 获取堆栈中的最小元素。
-   */
-  class MinStack {
-
-    Deque<Integer> xStack;
-    Deque<Integer> minStack;
-
-    public MinStack() {
-      xStack = new LinkedList<Integer>();
-      minStack = new LinkedList<Integer>();
-      minStack.push(Integer.MAX_VALUE);
-    }
-
-    public void push(int x) {
-      xStack.push(x);
-      minStack.push(Math.min(minStack.peek(), x));
-    }
-
-    public void pop() {
-      xStack.pop();
-      minStack.pop();
-    }
-
-    public int top() {
-      return xStack.peek();
-    }
-
-    public int getMin() {
-      return minStack.peek();
-    }
-  }
+//  /**
+//   * 155. 最小栈
+//   * <p>
+//   * 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
+//   * <p>
+//   * 实现 MinStack 类:
+//   * <p>
+//   * MinStack() 初始化堆栈对象。 void push(int val) 将元素val推入堆栈。 void pop() 删除堆栈顶部的元素。 int top() 获取堆栈顶部的元素。
+//   * int getMin() 获取堆栈中的最小元素。
+//   */
+//  class MinStack {
+//
+//    Deque<Integer> xStack;
+//    Deque<Integer> minStack;
+//
+//    public MinStack() {
+//      xStack = new LinkedList<Integer>();
+//      minStack = new LinkedList<Integer>();
+//      minStack.push(Integer.MAX_VALUE);
+//    }
+//
+//    public void push(int x) {
+//      xStack.push(x);
+//      minStack.push(Math.min(minStack.peek(), x));
+//    }
+//
+//    public void pop() {
+//      xStack.pop();
+//      minStack.pop();
+//    }
+//
+//    public int top() {
+//      return xStack.peek();
+//    }
+//
+//    public int getMin() {
+//      return minStack.peek();
+//    }
+//  }
 
   /**
    * 78. 子集
-   *
+   * <p>
    * 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
-   *
-   * 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。
-   * 示例 1：
-   *
-   * 输入：nums = [1,2,3]
-   * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+   * <p>
+   * 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。 示例 1：
+   * <p>
+   * 输入：nums = [1,2,3] 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
    */
   public List<List<Integer>> subsets(int[] nums) {
     // 结果集长度为 nums长度左移一位
@@ -2030,6 +2027,83 @@ public class NewSolution {
       }
     }
     return res;
+  }
+
+
+  /**
+   * 76. 最小覆盖子串
+   * <p>
+   * 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+   * <p>
+   * 注意：
+   * <p>
+   * 对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。 如果 s 中存在这样的子串，我们保证它是唯一的答案。
+   * <p>
+   * 示例 1：
+   * <p>
+   * 输入：s = "ADOBECODEBANC", t = "ABC" 输出："BANC" 解释：最小覆盖子串 "BANC" 包含来自字符串 t 的 'A'、'B' 和 'C'。
+   */
+  public String minWindow(String s, String t) {
+    //把t中的字符全部放到map中
+    Map<Character, Integer> map = new HashMap<>();
+    for (char ch : t.toCharArray()) {
+      map.put(ch, map.getOrDefault(ch, 0) + 1);
+    }
+
+    int left = 0;//窗口的左边界
+    int right = 0;//窗口的右边界
+
+    //满足条件的窗口开始位置
+    int strStart = 0;
+    //满足条件的窗口的长度
+    int windowLength = Integer.MAX_VALUE;
+
+    while (right < s.length()) {
+      //记录右指针扫描过的字符
+      char rightChar = s.charAt(right);
+      //如果右指针扫描的字符存在于map中，就减1
+      if (map.containsKey(rightChar)) {
+        map.put(rightChar, map.getOrDefault(rightChar, 0) - 1);
+      }
+      //记录之后右指针要往右移
+      right++;
+
+      //检查窗口是否把t中字符全部覆盖了，如果覆盖了，要移动窗口的左边界
+      //找到最小的能全部覆盖的窗口
+      while (check(map)) {
+        //如果现在窗口比之前保存的还要小，就更新窗口的长度
+        //以及窗口的起始位置
+        if (right - left < windowLength) {
+          windowLength = right - left;
+          strStart = left;
+        }
+        //移除窗口最左边的元素，也就是缩小窗口
+        char leftChar = s.charAt(left);
+        if (map.containsKey(leftChar)) {
+          map.put(leftChar, map.getOrDefault(leftChar, 0) + 1);
+        }
+        //左指针往右移
+        left++;
+      }
+    }
+    //如果找到合适的窗口就截取，否则就返回空
+    if (windowLength != Integer.MAX_VALUE) {
+      return s.substring(strStart, strStart + windowLength);
+    }
+    return "";
+  }
+
+  //检查窗口是否把字符串t中的所有字符都覆盖了，如果map中所有
+  // value的值都不大于0，则表示全部覆盖
+  private boolean check(Map<Character, Integer> map) {
+    for (int value : map.values()) {
+      //注意这里的value是可以为负数的，为负数的情况就是，相同的字符右
+      // 指针扫描的要比t中的多，比如t是"ABC"，窗口中的字符是"ABBC"
+      if (value > 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public static void main(String[] args) {
