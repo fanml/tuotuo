@@ -1832,8 +1832,8 @@ public class NewSolution {
    * <p>
    * 输入：nums = [1,3,-1,-3,5,3,6,7], k = 3 输出：[3,3,5,5,6,7] 解释： 滑动窗口的位置                最大值
    * ---------------               ----- [1  3  -1] -3  5  3  6  7       3 1 [3  -1  -3] 5  3  6  7
-   *      3 1  3 [-1  -3  5] 3  6  7       5 1  3  -1 [-3  5  3] 6  7       5 1  3  -1  -3 [5  3  6]
-   * 7       6 1  3  -1  -3  5 [3  6  7]      7
+   * 3 1  3 [-1  -3  5] 3  6  7       5 1  3  -1 [-3  5  3] 6  7       5 1  3  -1  -3 [5  3  6] 7 6
+   * 1  3  -1  -3  5 [3  6  7]      7
    */
   public int[] maxSlidingWindow(int[] nums, int k) {
     //边界条件的判断
@@ -1871,22 +1871,15 @@ public class NewSolution {
 
   /**
    * 165. 比较版本号
-   *
+   * <p>
    * 示例 1：
-   *
-   * 输入：version1 = "1.01", version2 = "1.001"
-   * 输出：0
-   * 解释：忽略前导零，"01" 和 "001" 都表示相同的整数 "1"
-   * 示例 2：
-   *
-   * 输入：version1 = "1.0", version2 = "1.0.0"
-   * 输出：0
-   * 解释：version1 没有指定下标为 2 的修订号，即视为 "0"
-   * 示例 3：
-   *
-   * 输入：version1 = "0.1", version2 = "1.1"
-   * 输出：-1
-   * 解释：version1 中下标为 0 的修订号是 "0"，version2 中下标为 0 的修订号是 "1" 。0 < 1，所以 version1 < version2
+   * <p>
+   * 输入：version1 = "1.01", version2 = "1.001" 输出：0 解释：忽略前导零，"01" 和 "001" 都表示相同的整数 "1" 示例 2：
+   * <p>
+   * 输入：version1 = "1.0", version2 = "1.0.0" 输出：0 解释：version1 没有指定下标为 2 的修订号，即视为 "0" 示例 3：
+   * <p>
+   * 输入：version1 = "0.1", version2 = "1.1" 输出：-1 解释：version1 中下标为 0 的修订号是 "0"，version2 中下标为 0 的修订号是
+   * "1" 。0 < 1，所以 version1 < version2
    */
   public int compareVersion(String version1, String version2) {
     String[] v1 = version1.split("\\.");
@@ -1911,25 +1904,24 @@ public class NewSolution {
 
   /**
    * LCR 140. 训练计划 II
-   *
+   * <p>
    * 给定一个头节点为 head 的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第 cnt 个训练项目编号。
-   *
-   *
-   *
+   * <p>
+   * <p>
+   * <p>
    * 示例 1：
-   *
-   * 输入：head = [2,4,7,8], cnt = 1
-   * 输出：8
-   *
+   * <p>
+   * 输入：head = [2,4,7,8], cnt = 1 输出：8
+   * <p>
    * 双指针
    */
   public ListNode trainingPlan(ListNode head, int cnt) {
     ListNode slow = head;
     ListNode fast = head;
-    for(int i =0;i<cnt;i++){
+    for (int i = 0; i < cnt; i++) {
       fast = fast.next;
     }
-    while (fast!=null){
+    while (fast != null) {
       fast = fast.next;
       slow = slow.next;
     }
@@ -1937,24 +1929,18 @@ public class NewSolution {
   }
 
   /**
-   * 41. 缺失的第一个正数
-   * 给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
-   *
+   * 41. 缺失的第一个正数 给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+   * <p>
    * 请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
-   *
+   * <p>
    * 示例 1：
-   *
-   * 输入：nums = [1,2,0]
-   * 输出：3
-   * 示例 2：
-   *
-   * 输入：nums = [3,4,-1,1]
-   * 输出：2
-   * 示例 3：
-   *
-   * 输入：nums = [7,8,9,11,12]
-   * 输出：1
-   *
+   * <p>
+   * 输入：nums = [1,2,0] 输出：3 示例 2：
+   * <p>
+   * 输入：nums = [3,4,-1,1] 输出：2 示例 3：
+   * <p>
+   * 输入：nums = [7,8,9,11,12] 输出：1
+   * <p>
    * 把数组看成hash表
    */
   public int firstMissingPositive(int[] nums) {
@@ -1981,18 +1967,16 @@ public class NewSolution {
 
   /**
    * 155. 最小栈
-   *
+   * <p>
    * 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
-   *
+   * <p>
    * 实现 MinStack 类:
-   *
-   * MinStack() 初始化堆栈对象。
-   * void push(int val) 将元素val推入堆栈。
-   * void pop() 删除堆栈顶部的元素。
-   * int top() 获取堆栈顶部的元素。
+   * <p>
+   * MinStack() 初始化堆栈对象。 void push(int val) 将元素val推入堆栈。 void pop() 删除堆栈顶部的元素。 int top() 获取堆栈顶部的元素。
    * int getMin() 获取堆栈中的最小元素。
    */
   class MinStack {
+
     Deque<Integer> xStack;
     Deque<Integer> minStack;
 
@@ -2019,6 +2003,33 @@ public class NewSolution {
     public int getMin() {
       return minStack.peek();
     }
+  }
+
+  /**
+   * 78. 子集
+   *
+   * 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+   *
+   * 解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。
+   * 示例 1：
+   *
+   * 输入：nums = [1,2,3]
+   * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+   */
+  public List<List<Integer>> subsets(int[] nums) {
+    // 结果集长度为 nums长度左移一位
+    List<List<Integer>> res = new ArrayList<>(1 << nums.length);
+    res.add(new ArrayList<>());
+    for (int num : nums) {
+      int j = res.size();
+      // 每遍历一个元素就在之前子集中的每个集合追加这个元素，让他变成新的子集
+      for (int i = 0; i < j; i++) {
+        List<Integer> list = new ArrayList<>(res.get(i));
+        list.add(num);
+        res.add(list);
+      }
+    }
+    return res;
   }
 
   public static void main(String[] args) {
