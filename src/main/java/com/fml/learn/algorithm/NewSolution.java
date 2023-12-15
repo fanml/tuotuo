@@ -1526,6 +1526,63 @@ public class NewSolution {
     return ans;
   }
 
+  public List<Integer> inorderTraversal3(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+    if (root == null) {
+      return ans;
+    }
+    Deque<TreeNode> deque = new LinkedList<>();
+    TreeNode node = root;
+    while (!deque.isEmpty() || node != null) {
+      while (node != null) {
+        deque.push(node);
+        node = node.left;
+      }
+      node = deque.pop();
+      ans.add(node.val);
+      node = node.right;
+    }
+    return ans;
+  }
+
+  /**
+   * 144. 二叉树的前序遍历
+   * 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
+   */
+  public List<Integer> preorderTraversal(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+    preorder(root, ans);
+    return ans;
+  }
+
+  private void preorder(TreeNode root, List<Integer> ans) {
+    if (root == null) {
+      return;
+    }
+    ans.add(root.val);
+    preorder(root.left, ans);
+    preorder(root.right, ans);
+  }
+
+  public List<Integer> preorderTraversal2(TreeNode root) {
+    List<Integer> ans = new ArrayList<>();
+    if (root == null) {
+      return ans;
+    }
+    Deque<TreeNode> deque = new LinkedList<>();
+    TreeNode node = root;
+    while (!deque.isEmpty() || node != null) {
+      while (node != null) {
+        ans.add(node.val);
+        deque.push(node);
+        node = node.left;
+      }
+      node = deque.pop();
+      node = node.right;
+    }
+    return ans;
+  }
+
   /**
    * 最长公共子串
    * <p>
@@ -2105,6 +2162,7 @@ public class NewSolution {
     }
     return true;
   }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
