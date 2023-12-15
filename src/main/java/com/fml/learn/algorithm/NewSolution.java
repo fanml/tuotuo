@@ -1546,8 +1546,7 @@ public class NewSolution {
   }
 
   /**
-   * 144. 二叉树的前序遍历
-   * 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
+   * 144. 二叉树的前序遍历 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
    */
   public List<Integer> preorderTraversal(TreeNode root) {
     List<Integer> ans = new ArrayList<>();
@@ -2161,6 +2160,23 @@ public class NewSolution {
       }
     }
     return true;
+  }
+
+  /**
+   * 104. 二叉树的最大深度
+   *
+   * 给定一个二叉树 root ，返回其最大深度。
+   *
+   * 二叉树的 最大深度 是指从根节点到最远叶子节点的最长路径上的节点数。
+   */
+  public int maxDepth(TreeNode root) {
+    if (root == null) {
+      return 0;
+    } else {
+      int left = maxDepth(root.left);
+      int right = maxDepth(root.right);
+      return Math.max(left, right) + 1;
+    }
   }
 
 
