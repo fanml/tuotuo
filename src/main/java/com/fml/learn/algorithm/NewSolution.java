@@ -1583,6 +1583,30 @@ public class NewSolution {
   }
 
   /**
+   * 129. 求根节点到叶节点数字之和 给你一个二叉树的根节点 root ，树中每个节点都存放有一个 0 到 9 之间的数字。 每条从根节点到叶节点的路径都代表一个数字：
+   * <p>
+   * 例如，从根节点到叶节点的路径 1 -> 2 -> 3 表示数字 123 。 计算从根节点到叶节点生成的 所有数字之和 。
+   * <p>
+   * 叶节点 是指没有子节点的节点。 输入：root = [1,2,3] 输出：25 解释： 从根到叶子节点路径 1->2 代表数字 12 从根到叶子节点路径 1->3 代表数字 13
+   * 因此，数字总和 = 12 + 13 = 25
+   */
+  public int sumNumbers(TreeNode root) {
+    return dfs(root, 0);
+  }
+
+  public int dfs(TreeNode root, int prevSum) {
+    if (root == null) {
+      return 0;
+    }
+    int sum = prevSum * 10 + root.val;
+    if (root.left == null && root.right == null) {
+      return sum;
+    } else {
+      return dfs(root.left, sum) + dfs(root.right, sum);
+    }
+  }
+
+  /**
    * 最长公共子串
    * <p>
    * 有两个字符串，s1="people"和s2="eplm"，我们要求他俩最长的公共子串。我们一眼就能看 出他们的最长公共子串是"pl"，长度是2
@@ -2164,9 +2188,9 @@ public class NewSolution {
 
   /**
    * 104. 二叉树的最大深度
-   *
+   * <p>
    * 给定一个二叉树 root ，返回其最大深度。
-   *
+   * <p>
    * 二叉树的 最大深度 是指从根节点到最远叶子节点的最长路径上的节点数。
    */
   public int maxDepth(TreeNode root) {
@@ -2181,13 +2205,12 @@ public class NewSolution {
 
   /**
    * 110. 平衡二叉树
-   *
+   * <p>
    * 给定一个二叉树，判断它是否是高度平衡的二叉树。
-   *
+   * <p>
    * 本题中，一棵高度平衡二叉树定义为：
-   *
+   * <p>
    * 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
-   *
    */
   public boolean isBalanced(TreeNode root) {
     return height(root) >= 0;
