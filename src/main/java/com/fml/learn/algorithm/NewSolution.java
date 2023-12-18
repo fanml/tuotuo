@@ -2274,21 +2274,17 @@ public class NewSolution {
   }
 
   /**
-   * 39. 组合总和
-   * 给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
-   *
+   * 39. 组合总和 给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合
+   * ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
+   * <p>
    * candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。
-   *
+   * <p>
    * 对于给定的输入，保证和为 target 的不同组合数少于 150 个。
-   *
+   * <p>
    * 示例 1：
-   *
-   * 输入：candidates = [2,3,6,7], target = 7
-   * 输出：[[2,2,3],[7]]
-   * 解释：
-   * 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
-   * 7 也是一个候选， 7 = 7 。
-   * 仅有这两种组合。
+   * <p>
+   * 输入：candidates = [2,3,6,7], target = 7 输出：[[2,2,3],[7]] 解释： 2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2
+   * 可以使用多次。 7 也是一个候选， 7 = 7 。 仅有这两种组合。
    */
   public List<List<Integer>> combinationSum(int[] candidates, int target) {
     int len = candidates.length;
@@ -2310,7 +2306,8 @@ public class NewSolution {
    * @param path       从根结点到叶子结点的路径，是一个栈
    * @param res        结果集列表
    */
-  private void dfs(int[] candidates, int begin, int len, int target, Deque<Integer> path, List<List<Integer>> res) {
+  private void dfs(int[] candidates, int begin, int len, int target, Deque<Integer> path,
+      List<List<Integer>> res) {
     // target 为负数和 0 的时候不再产生新的孩子结点
     if (target < 0) {
       return;
@@ -2334,14 +2331,12 @@ public class NewSolution {
 
   /**
    * 98. 验证二叉搜索树
-   *
+   * <p>
    * 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
-   *
+   * <p>
    * 有效 二叉搜索树定义如下：
-   *
-   * 节点的左子树只包含 小于 当前节点的数。
-   * 节点的右子树只包含 大于 当前节点的数。
-   * 所有左子树和右子树自身必须也是二叉搜索树。
+   * <p>
+   * 节点的左子树只包含 小于 当前节点的数。 节点的右子树只包含 大于 当前节点的数。 所有左子树和右子树自身必须也是二叉搜索树。
    */
   public boolean isValidBST(TreeNode root) {
     return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
@@ -2358,16 +2353,11 @@ public class NewSolution {
   }
 
   /**
-   * 48. 旋转图像
-   * 中等
-   * 1.8K
-   * 相关企业
-   * 给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
-   *
+   * 48. 旋转图像 中等 1.8K 相关企业 给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
+   * <p>
    * 你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
-   *
-   * 输入：matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
-   * 输出：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+   * <p>
+   * 输入：matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]] 输出：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
    */
   public void rotate(int[][] matrix) {
     int n = matrix.length;
@@ -2384,12 +2374,9 @@ public class NewSolution {
   }
 
   /**
-   * 64. 最小路径和
-   * 相关企业
-   * 给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
-   *
-   * 说明：每次只能向下或者向右移动一步。
-   * 动态规划
+   * 64. 最小路径和 相关企业 给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+   * <p>
+   * 说明：每次只能向下或者向右移动一步。 动态规划
    */
   public int minPathSum(int[][] grid) {
     if (grid == null || grid.length == 0 || grid[0].length == 0) {
@@ -2413,7 +2400,39 @@ public class NewSolution {
   }
 
 
+  /**
+   * 113. 路径总和 II
+   *
+   * 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
+   *
+   * 叶子节点 是指没有子节点的节点。
+   *
+   * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+   * 输出：[[5,4,11,2],[5,8,4,5]]
+   *
+   * 深度优先遍历 + 回溯
+   *
+   */
+  public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+    dfsPathSum(root, targetSum);
+    return ret;
+  }
+  List<List<Integer>> ret = new LinkedList<List<Integer>>();
+  Deque<Integer> path = new LinkedList<Integer>();
 
+  public void dfsPathSum(TreeNode root, int targetSum) {
+    if (root == null) {
+      return;
+    }
+    path.offerLast(root.val);
+    targetSum -= root.val;
+    if (root.left == null && root.right == null && targetSum == 0) {
+      ret.add(new LinkedList<Integer>(path));
+    }
+    dfsPathSum(root.left, targetSum);
+    dfsPathSum(root.right, targetSum);
+    path.pollLast();
+  }
 
 
   public static void main(String[] args) {
