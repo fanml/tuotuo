@@ -2402,21 +2402,20 @@ public class NewSolution {
 
   /**
    * 113. 路径总和 II
-   *
+   * <p>
    * 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。
-   *
+   * <p>
    * 叶子节点 是指没有子节点的节点。
-   *
-   * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
-   * 输出：[[5,4,11,2],[5,8,4,5]]
-   *
+   * <p>
+   * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22 输出：[[5,4,11,2],[5,8,4,5]]
+   * <p>
    * 深度优先遍历 + 回溯
-   *
    */
   public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
     dfsPathSum(root, targetSum);
     return ret;
   }
+
   List<List<Integer>> ret = new LinkedList<List<Integer>>();
   Deque<Integer> path = new LinkedList<Integer>();
 
@@ -2434,6 +2433,59 @@ public class NewSolution {
     path.pollLast();
   }
 
+
+  /**
+   * 34. 在排序数组中查找元素的第一个和最后一个位置
+   * <p>
+   * 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。 如果数组中不存在目标值 target，返回 [-1, -1]。
+   * <p>
+   * 你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。
+   * <p>
+   * 示例 1：
+   * <p>
+   * 输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4] 示例 2：
+   * <p>
+   * 输入：nums = [5,7,7,8,8,10], target = 6 输出：[-1,-1]
+   */
+  public int[] searchRange(int[] nums, int target) {
+    int first = searchFirst(nums, target);
+    //判断有没有查找到
+    if (first < nums.length && nums[first] == target) {
+      int last = searchLast(nums, target);
+      return new int[]{first, last};
+    } else {
+      //没有找到这个值，直接返回{-1, -1}
+      return new int[]{-1, -1};
+    }
+  }
+
+  //如果数组nums中有多个target，那么返回值就是第一个出现的target的下标
+  //如果数组nums中没有target，那么返回的就是第一个大于target的下标
+  public static int searchFirst(int[] nums, double target) {
+    int low = 0, high = nums.length - 1;
+    while (low <= high) {
+      int m = low + (high - low) / 2;
+      if (target > nums[m]) {
+        low = m + 1;
+      } else {
+        high = m - 1;
+      }
+    }
+    return low;
+  }
+
+  public static int searchLast(int[] nums, double target) {
+    int low = 0, high = nums.length - 1;
+    while (low <= high) {
+      int m = low + (high - low) / 2;
+      if (target >= nums[m]) {
+        low = m + 1;
+      } else {
+        high = m - 1;
+      }
+    }
+    return high;
+  }
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
