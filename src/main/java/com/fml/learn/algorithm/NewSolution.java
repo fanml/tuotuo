@@ -2489,9 +2489,9 @@ public class NewSolution {
 
   /**
    * 221. 最大正方形
-   *
+   * <p>
    * 在一个由 '0' 和 '1' 组成的二维矩阵内，找到只包含 '1' 的最大正方形，并返回其面积。
-   *
+   * <p>
    * 输入：matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
    * 输出：4
    */
@@ -2516,6 +2516,26 @@ public class NewSolution {
     }
     int maxSquare = maxSide * maxSide;
     return maxSquare;
+  }
+
+  ListNode temp;
+
+  /**
+   * 234. 回文链表
+   * 给你一个单链表的头节点 head ，请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false 。
+   */
+  public boolean isPalindrome(ListNode head) {
+    temp = head;
+    return check(head);
+  }
+
+  private boolean check(ListNode head) {
+    if (head == null) {
+      return true;
+    }
+    boolean res = check(head.next) && (temp.val == head.val);
+    temp = temp.next;
+    return res;
   }
 
   public static void main(String[] args) {
