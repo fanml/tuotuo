@@ -2521,8 +2521,7 @@ public class NewSolution {
   ListNode temp;
 
   /**
-   * 234. 回文链表
-   * 给你一个单链表的头节点 head ，请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false 。
+   * 234. 回文链表 给你一个单链表的头节点 head ，请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false 。
    */
   public boolean isPalindrome(ListNode head) {
     temp = head;
@@ -2536,6 +2535,23 @@ public class NewSolution {
     boolean res = check(head.next) && (temp.val == head.val);
     temp = temp.next;
     return res;
+  }
+
+  /**
+   * 112. 路径总和
+   * <p>
+   * 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum
+   * 。如果存在，返回 true ；否则，返回 false
+   */
+  public boolean hasPathSum(TreeNode root, int targetSum) {
+    if (root == null) {
+      return false;
+    }
+    if (root.left == null && root.right == null) {
+      return root.val == targetSum;
+    }
+    return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right,
+        targetSum - root.val);
   }
 
   public static void main(String[] args) {
