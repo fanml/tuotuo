@@ -803,6 +803,25 @@ public class NewSolution {
   }
 
   /**
+   * 122. 买卖股票的最佳时机 II
+   * <p>
+   * 给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。
+   * <p>
+   * 在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。
+   * <p>
+   * 返回 你能获得的 最大 利润 。
+   */
+  public int maxProfit2(int[] prices) {
+    int ans = 0;
+    for (int i = 1; i < prices.length; i++) {
+      if (prices[i] > prices[i - 1]) {
+        ans = ans + prices[i] - prices[i - 1];
+      }
+    }
+    return ans;
+  }
+
+  /**
    * 141. 环形链表 给你一个链表的头节点 head ，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。
    * 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。 如果链表中存在环
    * ，则返回 true 。 否则，返回 false 。 快慢双指针
