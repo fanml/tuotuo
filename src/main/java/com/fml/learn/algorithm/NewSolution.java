@@ -1760,6 +1760,30 @@ public class NewSolution {
   }
 
   /**
+   * 83. 删除排序链表中的重复元素
+   *
+   * 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
+   *
+   * 输入：head = [1,1,2]
+   * 输出：[1,2]
+   */
+  public ListNode deleteDuplicates1(ListNode head) {
+    if (head == null) {
+      return head;
+    }
+    ListNode dummny = new ListNode(0);
+    dummny.next = head;
+    while (head.next != null) {
+      if (head.val == head.next.val) {
+        head.next = head.next.next;
+      } else {
+        head = head.next;
+      }
+    }
+    return dummny.next;
+  }
+
+  /**
    * 82. 删除排序链表中的重复元素 II
    * <p>
    * 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回 已排序的链表 。
