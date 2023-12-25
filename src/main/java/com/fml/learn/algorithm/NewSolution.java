@@ -2839,27 +2839,22 @@ public class NewSolution {
 
   /**
    * 24. 两两交换链表中的节点
-   *
-   * 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
-   * 输入：head = [1,2,3,4]
-   * 输出：[2,1,4,3]
-   * 示例 2：
-   *
-   * 输入：head = []
-   * 输出：[]
-   * 示例 3：
-   *
-   * 输入：head = [1]
-   * 输出：[1]
+   * <p>
+   * 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。 输入：head = [1,2,3,4]
+   * 输出：[2,1,4,3] 示例 2：
+   * <p>
+   * 输入：head = [] 输出：[] 示例 3：
+   * <p>
+   * 输入：head = [1] 输出：[1]
    */
   public ListNode swapPairs(ListNode head) {
-    if(head == null){
+    if (head == null) {
       return head;
     }
     ListNode dummny = new ListNode(0);
     dummny.next = head;
     ListNode temp = dummny;
-    while(temp.next !=null && temp.next.next!=null){
+    while (temp.next != null && temp.next.next != null) {
       ListNode node1 = temp.next;
       ListNode node2 = temp.next.next;
       temp.next = node2;
@@ -2871,7 +2866,7 @@ public class NewSolution {
   }
 
   public ListNode swapPairs2(ListNode head) {
-    if(head == null || head.next == null){
+    if (head == null || head.next == null) {
       return head;
     }
     ListNode next = head.next;
@@ -2879,6 +2874,32 @@ public class NewSolution {
     next.next = head;
     return next;
   }
+
+  /**
+   * 283. 移动零 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+   * <p>
+   * 请注意 ，必须在不复制数组的情况下原地对数组进行操作。
+   * <p>
+   * 示例 1:
+   * <p>
+   * 输入: nums = [0,1,0,3,12] 输出: [1,3,12,0,0] 示例 2:
+   * <p>
+   * 输入: nums = [0] 输出: [0]
+   *
+   * 双指针
+   */
+  public void moveZeroes(int[] nums) {
+    int length = nums.length;
+    int l = 0, r = 0;
+    while (r < length) {
+      if (nums[r] != 0) {
+        swap(nums, l, r);
+        l++;
+      }
+      r++;
+    }
+  }
+
 
   public static void main(String[] args) {
 //    String s = "abcabcbb";
